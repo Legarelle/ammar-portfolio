@@ -1,0 +1,1717 @@
+:root {
+            --bg-primary: #F6F4F0;
+            --bg-surface: rgba(255, 255, 255, 0.88);
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --text-primary: #141413;
+            --text-muted: #57554F;
+            --accent: #FF4F00;
+            --accent-text: #B33A00;
+            --accent-on: #141413;
+            --border-color: rgba(20, 20, 19, 0.14);
+        }
+
+        html.dark {
+            --bg-primary: #0E100F;
+            --bg-surface: rgba(14, 18, 22, 0.88);
+            --bg-card: rgba(12, 20, 28, 0.92);
+            --text-primary: #F2F4F3;
+            --text-muted: #98A29D;
+            --accent: #FF5E1A;
+            --accent-text: #FF5E1A;
+            --accent-on: #141413;
+            --border-color: rgba(242, 244, 243, 0.15);
+        }
+
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        button {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent-text);
+            outline-offset: 3px;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            overscroll-behavior: none;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1), color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .hairline-border {
+            border-color: var(--border-color);
+        }
+
+        .altitude-labels {
+            position: relative;
+            display: block;
+        }
+
+        .altitude-labels > button {
+            position: absolute;
+            right: 0;
+            transform: translateY(-50%);
+            min-height: 28px;
+            font-size: 11px;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .altitude-scrubber {
+            transition: opacity 180ms ease, visibility 180ms linear;
+        }
+
+        .altitude-scrubber.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        @media (max-width: 1155px) {
+            #altitudeScrubber > div:first-child,
+            #altitudeScrubber > div:last-child,
+            #altitudeScrubber .altitude-labels {
+                display: none;
+            }
+
+            #altitudeScrubber > div + div {
+                margin-top: 0;
+            }
+
+            #altitudeScrubber .altitude-labels + #altitudeTrack {
+                margin-left: 0;
+            }
+        }
+
+        .altitude-tick {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .strengths-mobile-copy {
+            display: none;
+        }
+
+        .about-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .about-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        #aboutTabs {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        #aboutTabs [role="tab"] {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 44px;
+            padding: 6px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            text-align: center;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.75rem;
+            line-height: 1.25;
+            white-space: nowrap;
+            transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+        }
+
+        .about-tab-index {
+            flex: 0 0 auto;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.75rem;
+            color: var(--accent-text);
+        }
+
+        .about-tab-label {
+            min-width: 0;
+        }
+
+        .about-tab-slash {
+            flex: 0 0 auto;
+            color: var(--accent-text);
+        }
+
+        #aboutTabs [role="tab"][aria-selected="true"] {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        #aboutTabs [role="tab"][aria-selected="false"] {
+            background: transparent;
+            color: var(--text-muted);
+        }
+
+        #aboutTabs [role="tab"][aria-selected="false"]:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-text);
+        }
+
+        .about-info-card {
+            min-width: 0;
+        }
+
+        .about-heading {
+            min-width: 0;
+            max-width: 52%;
+            text-align: right;
+        }
+
+        .about-heading > div {
+            justify-content: flex-end;
+            font-size: 0.7rem;
+            line-height: 1.3;
+        }
+
+        .about-heading h2 {
+            margin-top: 4px;
+            font-size: clamp(1.25rem, 2.4vw, 2rem);
+        }
+
+        .apple-glass {
+            background: var(--bg-surface);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+        }
+
+        .card-surface {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px) saturate(160%);
+            -webkit-backdrop-filter: blur(16px) saturate(160%);
+            box-shadow: 0 12px 32px -8px rgba(10, 18, 28, 0.08);
+        }
+
+        /* Spatial 3D Stage & Layers */
+        #spatialViewport {
+            perspective: 1400px;
+            transform-style: preserve-3d;
+        }
+
+        .spatial-scene {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .spatial-scene.is-interactive {
+            pointer-events: auto;
+        }
+
+        .work-card-slide {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .work-card-slide.is-active {
+            pointer-events: auto;
+        }
+
+        /* 3D Curved Spatial Gallery / Cylindrical Coverflow Carousel (Reference Aesthetic) */
+        .spatial-gallery-stage {
+            perspective: 1400px;
+            transform-style: preserve-3d;
+            position: relative;
+            width: 100%;
+            height: 455px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+            touch-action: none;
+        }
+
+        #sceneProjects .max-w-6xl > div:first-child {
+            position: relative;
+            z-index: 300;
+        }
+
+        .spatial-gallery-ring {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-3d-slot {
+            position: absolute;
+            width: 268px;
+            height: 396px;
+            transform-style: preserve-3d;
+            will-change: transform, opacity, filter;
+            transition: filter 0.35s ease, opacity 0.35s ease;
+        }
+
+        @media (min-width: 640px) {
+            .project-3d-slot {
+                width: 288px;
+                height: 416px;
+            }
+        }
+
+        .project-carousel-card {
+            width: 100%;
+            height: 100%;
+            border-radius: 26px;
+            overflow: hidden;
+            transition: transform 0.46s cubic-bezier(0.22, 1, 0.36, 1),
+                        box-shadow 0.46s cubic-bezier(0.22, 1, 0.36, 1),
+                        border-color 0.32s ease,
+                        opacity 0.35s ease,
+                        filter 0.35s ease;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .project-preview-video {
+            background: #05070B;
+        }
+
+        #modalProjectMedia video {
+            object-fit: contain;
+        }
+
+        /* When any card in the 3D gallery is hovered, gently dim non-hovered sibling cards */
+        .carousel-has-hover .project-3d-slot:not(.is-hovered-slot) .project-carousel-card {
+            opacity: 0.52 !important;
+            filter: brightness(0.84) saturate(0.85);
+        }
+
+        /* Enlarged, highlighted & Z-boosted hovered 3D card state */
+        .project-carousel-card.is-hovered-card {
+            opacity: 1 !important;
+            border-color: var(--accent) !important;
+            box-shadow: 0 34px 75px -12px rgba(255, 79, 0, 0.38),
+                        0 0 0 2px var(--accent),
+                        0 0 42px -4px rgba(255, 115, 40, 0.35) !important;
+        }
+
+        html.dark .project-carousel-card.is-hovered-card {
+            box-shadow: 0 36px 80px -12px rgba(255, 107, 43, 0.45),
+                        0 0 0 2px var(--accent),
+                        0 0 48px -4px rgba(255, 107, 43, 0.4) !important;
+        }
+
+        #altitudeTrack {
+            min-width: 44px;
+        }
+
+        #altitudeTrack:focus-visible {
+            outline-color: var(--accent-text);
+        }
+
+        #altitudeThumb {
+            position: absolute;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+            transition: box-shadow 180ms ease;
+        }
+
+        #altitudeThumb::before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: calc(100% + 28px);
+            height: 8px;
+            border-radius: 9999px;
+            background: var(--accent);
+            content: "";
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -50%) scaleX(0.32);
+            transition: opacity 140ms ease,
+                        transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        #altitudeTrack:hover #altitudeThumb,
+        #altitudeTrack:focus-visible #altitudeThumb {
+            box-shadow: 0 0 12px var(--accent);
+        }
+
+        #altitudeTrack:hover #altitudeThumb::before,
+        #altitudeTrack:focus-visible #altitudeThumb::before {
+            opacity: 1;
+            transform: translate(-50%, -50%) scaleX(1);
+        }
+
+        #altitudeTrack:active #altitudeThumb {
+            box-shadow: 0 0 14px var(--accent);
+        }
+
+        #altitudeTrack:active #altitudeThumb::before {
+            transform: translate(-50%, -50%) scaleX(0.94);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #altitudeThumb,
+            #altitudeThumb::before {
+                transition: none;
+            }
+        }
+
+        #projectModal > div {
+            max-height: calc(100dvh - 2rem);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-width: none;
+        }
+
+        #projectModal > div::-webkit-scrollbar {
+            display: none;
+        }
+
+        .project-modal-link {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1rem;
+            border: 1px solid transparent;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+        }
+
+        .project-modal-link:hover {
+            transform: translateY(-1px);
+        }
+
+        .project-modal-link:focus-visible {
+            outline: 2px solid var(--accent-text);
+            outline-offset: 3px;
+        }
+
+        .project-modal-link--demo {
+            color: var(--accent-on);
+            background: var(--accent);
+            box-shadow: 0 6px 18px rgba(255, 79, 0, 0.2);
+        }
+
+        .project-modal-link--demo:hover {
+            box-shadow: 0 9px 24px rgba(255, 79, 0, 0.3);
+        }
+
+        .project-modal-link--repo {
+            color: var(--text-primary);
+            background: var(--bg-surface);
+            border-color: var(--text-primary);
+        }
+
+        .project-modal-link--repo:hover,
+        .project-modal-link--resource:hover {
+            border-color: var(--accent-text);
+            background: var(--bg-card);
+        }
+
+        .project-modal-link--resource {
+            color: var(--text-primary);
+            background: var(--bg-surface);
+            border-color: var(--border-color);
+            font-weight: 500;
+        }
+
+        @keyframes top-nav-arrive {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #topNavigation > button,
+        #topNavigation > nav,
+        #topNavigation > div {
+            animation: top-nav-arrive 560ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+        }
+
+        #topNavigation > nav {
+            animation-delay: 70ms;
+        }
+
+        #topNavigation > div {
+            animation-delay: 140ms;
+        }
+
+        #topNavigation > button,
+        #topNavigation > nav,
+        #topNavigation > div,
+        .nav-pill-btn {
+            transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+                        border-color 180ms ease,
+                        box-shadow 180ms ease;
+        }
+
+        @media (hover: hover) {
+            #topNavigation > button:hover,
+            #topNavigation > nav:hover,
+            #topNavigation > div:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 22px rgba(10, 18, 28, 0.1);
+            }
+
+            #topNavigation .nav-pill-btn:hover {
+                transform: translateY(-1px);
+            }
+        }
+
+        @media (max-width: 899px) {
+            .spatial-scene.is-interactive {
+                box-sizing: border-box;
+                align-items: flex-start;
+                justify-content: flex-start;
+                overflow-x: hidden;
+                overflow-y: auto;
+                padding-top: max(148px, calc(128px + env(safe-area-inset-top)));
+                padding-bottom: max(104px, calc(88px + env(safe-area-inset-bottom)));
+                overscroll-behavior-y: contain;
+                -webkit-overflow-scrolling: touch;
+                touch-action: pan-y;
+            }
+
+            [data-collapse-on-mobile] > summary {
+                list-style: none;
+            }
+
+            [data-collapse-on-mobile] .mobile-disclosure-summary::-webkit-details-marker {
+                display: none;
+            }
+
+            [data-collapse-on-mobile] .disclosure-chevron {
+                flex: 0 0 auto;
+                transition: transform 160ms ease;
+            }
+
+            [data-collapse-on-mobile][open] .disclosure-chevron {
+                transform: rotate(180deg);
+            }
+
+            #topNavigation {
+                top: max(8px, env(safe-area-inset-top));
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto;
+                gap: 8px;
+                padding-inline: max(12px, env(safe-area-inset-left));
+            }
+
+            #topNavigation > button {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            #topNavigation > nav {
+                grid-column: 1 / -1;
+                grid-row: 2;
+                justify-self: center;
+                max-width: 100%;
+                min-height: 52px;
+            }
+
+            #topNavigation > div {
+                grid-column: 2;
+                grid-row: 1;
+                gap: 4px;
+                padding-inline: 8px;
+            }
+        }
+
+        @media (min-width: 640px) and (max-width: 899px) {
+            #sceneWork #workDeckContainer {
+                height: 520px;
+            }
+
+            #sceneWork .work-card-slide {
+                box-sizing: border-box;
+                height: 100%;
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-rows: 148px minmax(0, 1fr);
+                align-content: stretch;
+                gap: 16px;
+                padding: 24px;
+            }
+
+            #sceneWork .work-card-slide > div:first-child {
+                height: 148px;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) {
+                min-height: 0;
+                padding-block: 0;
+            }
+
+            #sceneWork .work-card-slide h3 {
+                margin-bottom: 8px;
+                font-size: clamp(1.25rem, 3vw, 2rem);
+            }
+
+            #sceneWork .work-card-slide p {
+                margin-bottom: 12px;
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:first-child > div:nth-child(4) {
+                gap: 6px;
+                margin-bottom: 12px;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:first-child > div:nth-child(4) > span {
+                padding: 4px 8px;
+                font-size: 10px;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:nth-child(2) {
+                padding-top: 10px;
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 899px) {
+            #sceneProjects {
+                align-items: flex-start;
+                padding-top: max(148px, calc(128px + env(safe-area-inset-top)));
+            }
+
+            #sceneProjects .spatial-gallery-stage {
+                height: 260px;
+            }
+
+            #sceneProjects .max-w-6xl > div:first-child {
+                margin-bottom: 1.25rem;
+            }
+
+            #projectFilterBar {
+                flex-wrap: nowrap;
+                max-width: 100%;
+                overflow-x: auto;
+            }
+
+            #projectFilterBar .proj-filter-btn {
+                flex: 0 0 auto;
+            }
+
+            .project-3d-slot {
+                width: 220px;
+                height: 290px;
+            }
+
+            #sceneProjects .project-carousel-card > div:first-child {
+                height: 140px;
+            }
+        }
+
+        @media (max-width: 639px) {
+            footer {
+                bottom: max(12px, env(safe-area-inset-bottom));
+                gap: 8px;
+                padding-inline: 12px;
+            }
+
+            footer > div:first-child {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            #chapterIndex {
+                flex: 0 0 auto;
+            }
+
+            #chapterName {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            #nextStageBtn {
+                flex: 0 1 auto;
+                gap: 6px;
+                min-width: 44px;
+                padding-inline: 12px;
+                white-space: nowrap;
+            }
+
+            #scrollHintLabel {
+                max-width: clamp(72px, 24vw, 108px);
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .project-3d-slot {
+                width: 172px;
+                height: 260px;
+            }
+
+            #sceneProjects .project-carousel-card > div:first-child {
+                height: 92px;
+            }
+
+            .project-card-coords {
+                display: block;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) {
+                padding: 12px;
+            }
+
+            #sceneProjects .project-carousel-card h3 {
+                font-size: 11px;
+                margin-bottom: 4px;
+            }
+
+            #sceneProjects .project-carousel-card p {
+                display: -webkit-box;
+                overflow: hidden;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                font-size: 11px;
+                line-height: 1.45;
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) > div:nth-child(2) {
+                padding-top: 8px;
+                margin-top: 6px;
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) > div:nth-child(2) > div:first-child {
+                gap: 4px;
+                margin-bottom: 6px;
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) > div:nth-child(2) > div:first-child > span {
+                max-width: 100%;
+                font-size: 9px;
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) > div:nth-child(2) > div:last-child {
+                gap: 4px;
+                font-size: 11px;
+                white-space: nowrap;
+            }
+
+            #sceneProjects .spatial-gallery-stage {
+                height: 248px;
+            }
+
+            #sceneWork #workDeckContainer {
+                height: 560px !important;
+            }
+
+            #sceneWork .work-card-slide {
+                box-sizing: border-box;
+                height: 100%;
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-rows: 108px minmax(0, 1fr);
+                align-items: stretch;
+                align-content: stretch;
+                gap: 12px;
+                padding: 16px;
+            }
+
+            #sceneWork .work-card-slide:not(.is-active) {
+                opacity: 0 !important;
+                pointer-events: none;
+            }
+
+            #sceneWork .work-card-slide > div:first-child {
+                height: 108px !important;
+            }
+
+            #sceneWork .work-card-coordinates {
+                max-width: calc(100% - 1.5rem);
+                overflow: hidden;
+                text-align: right;
+                line-height: 1.15;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) {
+                height: auto;
+                min-height: 0;
+                justify-content: space-between;
+                overflow: hidden;
+                padding-top: 0;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:first-child > div:first-child {
+                flex-wrap: wrap;
+                gap: 2px 6px;
+                margin-bottom: 6px;
+                font-size: 10px;
+            }
+
+            #sceneWork .work-card-slide h3 {
+                margin-bottom: 8px;
+                font-size: 1.25rem;
+                line-height: 1.15;
+            }
+
+            #sceneWork .work-card-slide p {
+                margin-bottom: 12px;
+                font-size: 0.8125rem;
+                line-height: 1.45;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:first-child > div:nth-child(3) {
+                gap: 6px;
+                margin-bottom: 12px;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:first-child > div:nth-child(3) > span {
+                padding: 3px 8px;
+                font-size: 9px;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:nth-child(2) {
+                flex-wrap: wrap;
+                gap: 6px 12px;
+                padding-top: 10px;
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 359px) {
+            .project-3d-slot {
+                width: 160px;
+                height: 248px;
+            }
+        }
+
+        @media (min-width: 380px) and (max-width: 639px) {
+            #sceneAbout .mobile-credentials-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.5rem;
+            }
+
+            #sceneAbout .mobile-credentials-grid > div {
+                padding: 0.75rem;
+            }
+
+            #sceneAbout .mobile-credential-meta {
+                align-items: flex-start;
+                flex-wrap: wrap;
+                gap: 0.25rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 639px) and (orientation: portrait) {
+            #topNavigation > button {
+                min-width: 0;
+                max-width: 100%;
+                overflow: hidden;
+                padding-inline: 10px;
+            }
+
+            #navOwnerName {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            #topNavigation > nav {
+                scrollbar-width: none;
+            }
+
+            #topNavigation > nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            .spatial-scene.is-interactive,
+            #sceneProjects.is-interactive {
+                box-sizing: border-box;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                padding: max(132px, calc(124px + env(safe-area-inset-top))) 12px max(76px, calc(68px + env(safe-area-inset-bottom)));
+                overscroll-behavior: none;
+                -webkit-overflow-scrolling: auto;
+                touch-action: none;
+            }
+
+            #sceneProjects.is-interactive {
+                align-items: flex-start;
+                touch-action: pan-x pan-y;
+            }
+
+            .spatial-scene.is-interactive > div {
+                min-height: 0;
+                max-height: 100%;
+            }
+
+            #sceneHero {
+                padding-inline: 16px;
+            }
+
+            #sceneHero > div > div:first-child {
+                gap: 4px;
+                margin-bottom: 8px;
+                padding: 6px 10px;
+                font-size: 9px;
+                letter-spacing: 0.08em;
+            }
+
+            #heroRoleBadge,
+            #sceneHero > div > p:first-of-type {
+                display: none;
+            }
+
+            #sceneHero h1 {
+                margin-bottom: 10px;
+                font-size: clamp(1.7rem, 7vw, 2.15rem);
+                line-height: 1.02;
+            }
+
+            #heroBioText {
+                display: -webkit-box;
+                overflow: hidden;
+                margin-bottom: 12px;
+                font-size: 12px;
+                line-height: 1.4;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+            }
+
+            #sceneHero > div > div:last-child {
+                gap: 6px;
+            }
+
+            #sceneHero > div > div:last-child > * {
+                min-height: 40px;
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+
+            #sceneHero > div > div:last-child > a[href*="github.com"],
+            #sceneHero > div > div:last-child > a[href*="linkedin.com"] {
+                display: none;
+            }
+
+            #sceneProjects .max-w-6xl > div:first-child {
+                position: relative;
+                z-index: 30;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 28px;
+            }
+
+            #sceneProjects .max-w-6xl > div:first-child > div:last-child {
+                display: contents;
+            }
+
+            #sceneProjects .max-w-6xl > div:first-child > div:first-child > div:first-child > span:nth-child(n+2),
+            #carouselStatusBadge,
+            #sceneProjects .max-w-6xl > div:first-child > div:first-child > p,
+            #carouselModeBtn {
+                display: none;
+            }
+
+            #sceneProjects .max-w-6xl > div:first-child > div:first-child > div:first-child {
+                margin-bottom: 0;
+                font-size: 9px;
+            }
+
+            #sceneProjects h2 {
+                font-size: 1.35rem;
+                line-height: 1.1;
+            }
+
+            #sceneProjects .max-w-6xl > div:first-child > div:last-child {
+                gap: 0;
+            }
+
+            #projectFilterBar {
+                order: 2;
+                flex: 0 0 auto;
+                width: 100%;
+                min-width: 0;
+                min-height: 40px;
+                gap: 4px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scrollbar-width: none;
+                touch-action: pan-x;
+                overscroll-behavior-x: contain;
+            }
+
+            #projectFilterBar::-webkit-scrollbar {
+                display: none;
+            }
+
+            #projectFilterBar .proj-filter-btn {
+                flex: 0 0 auto;
+                padding: 5px 7px;
+                font-size: 8px;
+                letter-spacing: 0;
+            }
+
+            #sceneProjects [aria-label="Project carousel controls"] {
+                order: 1;
+                align-self: flex-end;
+                flex: 0 0 auto;
+            }
+
+            #sceneProjects [aria-label="Project carousel controls"] > button {
+                min-height: 40px;
+                padding: 6px 10px;
+                font-size: 9px;
+            }
+
+            #sceneProjects .spatial-gallery-stage {
+                height: clamp(190px, calc(100dvh - 574px), 270px);
+            }
+
+            .project-3d-slot {
+                width: clamp(196px, 56vw, 224px);
+                height: clamp(190px, calc(100dvh - 564px), 280px);
+            }
+
+            #sceneProjects .project-carousel-card > div:first-child {
+                height: clamp(66px, 22vw, 88px);
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) {
+                padding: 10px;
+            }
+
+            #sceneProjects .project-carousel-card h3 {
+                font-size: 12px;
+                line-height: 1.2;
+            }
+
+            #sceneProjects .project-carousel-card p {
+                font-size: 11px;
+                line-height: 1.3;
+                -webkit-line-clamp: 2;
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) > div:nth-child(2) > div:first-child > span:nth-child(n+3) {
+                display: none;
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) > div:nth-child(2) > div:last-child > span:first-child {
+                font-size: 0;
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) > div:nth-child(2) > div:last-child > span:first-child::after {
+                content: "Tap to inspect";
+                font-size: 11px;
+            }
+
+            #sceneWork > div > div:first-child {
+                gap: 8px;
+                margin-bottom: 8px;
+            }
+
+            #sceneWork > div > div:first-child > div:first-child > span {
+                font-size: 10px;
+                line-height: 1.25;
+                letter-spacing: 0.08em;
+            }
+
+            #sceneWork h2 {
+                font-size: 1.2rem;
+                line-height: 1.1;
+            }
+
+            #workStageDots {
+                gap: 4px;
+            }
+
+            #workStageDots button {
+                display: inline-flex;
+                flex: 1 1 calc(50% - 4px);
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                min-width: 0;
+                max-width: calc(50% - 2px);
+                min-height: 36px;
+                padding: 5px 8px;
+                font-size: 9px;
+                white-space: nowrap;
+            }
+
+            #workStageDots .work-dot-id,
+            #workStageDots button > span:last-child {
+                flex: 0 0 auto;
+            }
+
+            #workStageDots .work-dot-title {
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            #workStageDots button > span:last-child {
+                color: var(--accent-text);
+            }
+
+            #sceneWork #workDeckContainer {
+                height: clamp(220px, calc(100dvh - 430px), 320px) !important;
+            }
+
+            #sceneWork .work-card-slide {
+                grid-template-rows: 92px minmax(0, 1fr);
+                gap: 8px;
+                padding: 12px;
+            }
+
+            #sceneWork .work-card-slide > div:first-child {
+                height: 92px !important;
+            }
+
+            #sceneWork .work-card-slide > div:first-child > span:first-child {
+                top: 6px;
+                left: 8px;
+                font-size: 9px;
+            }
+
+            #sceneWork .work-card-coordinates {
+                right: 8px;
+                bottom: 6px;
+                max-width: calc(100% - 1rem);
+                font-size: 9px;
+                -webkit-line-clamp: 1;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:first-child > div:first-child {
+                flex-wrap: nowrap;
+                gap: 1px 5px;
+                margin-bottom: 3px;
+                overflow: hidden;
+                font-size: 11px;
+                white-space: nowrap;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:first-child > div:first-child > span:nth-child(n+2) {
+                display: none;
+            }
+
+            #sceneWork .work-card-slide h3 {
+                margin-bottom: 4px;
+                font-size: 1.05rem;
+                line-height: 1.08;
+            }
+
+            #sceneWork .work-card-slide p {
+                display: -webkit-box;
+                overflow: hidden;
+                margin-bottom: 4px;
+                font-size: 11px;
+                line-height: 1.3;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 3;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:first-child > div:nth-child(4) {
+                gap: 4px;
+                margin-bottom: 4px;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:nth-child(2) > span:first-child {
+                display: none;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:first-child > div:nth-child(4) > span {
+                padding: 2px 6px;
+                font-size: 9px;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:nth-child(2) {
+                justify-content: flex-end;
+                padding-top: 4px;
+                font-size: 11px;
+            }
+
+            #sceneAbout > div {
+                gap: 10px;
+            }
+
+            .about-header {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            #aboutTabs {
+                order: 2;
+                align-self: stretch;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 4px;
+            }
+
+            #aboutTabs [role="tab"] {
+                justify-content: center;
+                min-width: 0;
+                min-height: 36px;
+                padding: 5px 7px;
+                gap: 4px;
+                border-radius: 999px;
+                font-size: 8px;
+                line-height: 1.15;
+                white-space: nowrap;
+            }
+
+            #aboutTabs .about-tab-index {
+                font-size: 8px;
+            }
+
+            #aboutTabs .about-tab-label {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            #aboutTabs .about-tab-slash {
+                font-size: 8px;
+            }
+
+            .about-heading {
+                order: 1;
+                max-width: none;
+                text-align: left;
+            }
+
+            .about-heading > div {
+                justify-content: flex-start;
+                font-size: 8px;
+                line-height: 1.15;
+            }
+
+            .about-heading h2 {
+                margin-top: 3px;
+                font-size: 1.05rem;
+                line-height: 1.05;
+            }
+
+            .about-info-card {
+                padding: 6px !important;
+                border-radius: 16px;
+            }
+
+            #academicsPanel {
+                gap: 6px;
+            }
+
+            #academicsPanel > :not([hidden]) ~ :not([hidden]) {
+                margin-top: 4px;
+            }
+
+            #academicsPanel > div:first-child {
+                padding: 10px;
+                gap: 5px;
+            }
+
+            #academicsPanel > div:first-child > :not([hidden]) ~ :not([hidden]) {
+                margin-top: 4px;
+            }
+
+            #academicsPanel > div:first-child h3 {
+                font-size: 11px;
+                line-height: 1.2;
+            }
+
+            #academicsPanel > div:first-child p {
+                font-size: 11px;
+            }
+
+            #sceneAbout .mobile-credentials-grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 6px;
+            }
+
+            #sceneAbout .mobile-credentials-grid > div {
+                min-width: 0;
+                padding: 8px;
+            }
+
+            #sceneAbout .mobile-credential-meta {
+                align-items: flex-start;
+                flex-wrap: wrap;
+                gap: 2px 4px;
+                font-size: 9px;
+            }
+
+            #sceneAbout .mobile-credential-meta > span {
+                font-size: 9px;
+                overflow-wrap: anywhere;
+            }
+
+            #sceneAbout .mobile-credentials-grid h4 {
+                font-size: 10px;
+                line-height: 1.2;
+            }
+
+            #sceneAbout .mobile-credentials-grid p {
+                font-size: 11px;
+                line-height: 1.25;
+            }
+
+            #strengthsPanel:not([hidden]) {
+                min-height: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            #strengthsPanel > div {
+                margin: 0;
+                padding: 10px 12px;
+                gap: 8px;
+            }
+
+            #strengthsPanel > div > div {
+                min-width: 0;
+            }
+
+            #strengthsPanel h3 {
+                font-size: 12px;
+                line-height: 1.2;
+            }
+
+            #sceneAbout .strengths-mobile-copy {
+                display: inline;
+            }
+
+            #sceneAbout .strengths-full-copy {
+                display: none;
+            }
+
+            #strengthsPanel p {
+                display: block;
+                margin-top: 3px;
+                font-size: 10px;
+                line-height: 1.25;
+            }
+
+            #sceneAbout .coursework-disclosure > summary {
+                min-height: 32px;
+            }
+
+            #sceneContact .max-w-3xl > div:first-child {
+                gap: 4px;
+                margin-bottom: 8px;
+                padding: 6px 9px;
+                font-size: 9px;
+                letter-spacing: 0.06em;
+            }
+
+            #sceneContact .max-w-3xl > div:first-child > span:nth-child(n+2) {
+                display: none;
+            }
+
+            #sceneContact h2 {
+                margin-bottom: 8px;
+                font-size: clamp(1.7rem, 7vw, 2.15rem);
+                line-height: 1.02;
+            }
+
+            #sceneContact .max-w-3xl > p {
+                display: -webkit-box;
+                overflow: hidden;
+                margin-bottom: 10px;
+                font-size: 11px;
+                line-height: 1.35;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+            }
+
+            #sceneContact .max-w-3xl > div:nth-of-type(2) {
+                display: grid;
+                width: 100%;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 6px;
+                margin-bottom: 8px;
+            }
+
+            #sceneContact .max-w-3xl > div:nth-of-type(2) > a {
+                justify-content: center;
+                min-height: 40px;
+                padding: 7px 8px;
+                font-size: 10px;
+            }
+
+            #sceneContact .max-w-3xl > div:nth-of-type(3) {
+                gap: 6px;
+                margin-bottom: 0;
+            }
+
+            #sceneContact .max-w-3xl > div:nth-of-type(3) > button {
+                min-height: 40px;
+                padding: 7px 10px;
+                font-size: 10px;
+            }
+
+            #sceneContact .max-w-3xl > div:nth-of-type(3) > button:nth-child(3),
+            #sceneContact .max-w-3xl > div:nth-of-type(3) > button:nth-child(4),
+            #sceneContact .max-w-3xl > div:last-child {
+                display: none;
+            }
+
+            #sceneContact #contactEmailText {
+                font-size: 10px;
+            }
+
+            footer {
+                bottom: max(8px, env(safe-area-inset-bottom));
+            }
+        }
+
+        @media (max-width: 639px) and (orientation: portrait) and (max-height: 640px) {
+            .spatial-scene.is-interactive,
+            #sceneProjects.is-interactive {
+                padding-top: max(132px, calc(124px + env(safe-area-inset-top)));
+                padding-bottom: max(60px, calc(52px + env(safe-area-inset-bottom)));
+            }
+
+            #sceneAbout.is-interactive {
+                padding-bottom: max(72px, calc(64px + env(safe-area-inset-bottom)));
+            }
+
+            .mobile-education-dates {
+                display: none;
+            }
+
+            #sceneHero h1,
+            #sceneContact h2 {
+                font-size: clamp(1.55rem, 6.4vw, 1.9rem);
+            }
+
+            #sceneProjects .spatial-gallery-stage {
+                height: 166px;
+            }
+
+            #sceneProjects .max-w-6xl > div:first-child {
+                margin-bottom: 12px;
+            }
+
+            .project-3d-slot {
+                width: 196px;
+                height: 166px;
+            }
+
+            #sceneProjects .project-carousel-card > div:first-child {
+                height: 50px;
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) {
+                padding: 8px;
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) > div:nth-child(2) {
+                padding-top: 5px;
+                margin-top: 3px;
+            }
+
+            #sceneProjects .project-carousel-card > div:nth-child(2) > div:nth-child(2) > div:last-child {
+                display: none;
+            }
+
+            #sceneWork #workDeckContainer {
+                height: 190px !important;
+            }
+
+            #sceneWork .work-card-slide {
+                grid-template-rows: 42px minmax(0, 1fr);
+                gap: 6px;
+                padding: 10px;
+            }
+
+            #sceneWork .work-card-slide > div:first-child {
+                height: 42px !important;
+            }
+
+            #sceneWork .work-card-slide > div:nth-child(2) > div:first-child > div:nth-child(4) > span:nth-child(n+3) {
+                display: none;
+            }
+
+            #sceneWork .work-card-slide p {
+                -webkit-line-clamp: 1;
+            }
+
+            #sceneAbout > div {
+                gap: 4px;
+            }
+
+            .about-header {
+                gap: 4px;
+            }
+
+            #aboutTabs {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 4px;
+            }
+
+            #aboutTabs [role="tab"] {
+                min-width: 0;
+                min-height: 36px;
+                padding: 5px 6px;
+                font-size: 8px;
+            }
+
+            .about-heading > div {
+                font-size: 9px;
+                letter-spacing: 0.06em;
+            }
+
+            .about-heading h2 {
+                font-size: 0.9rem;
+                line-height: 1;
+            }
+
+            #academicsPanel {
+                gap: 4px;
+            }
+
+            #academicsPanel > :not([hidden]) ~ :not([hidden]) {
+                margin-top: 3px;
+            }
+
+            #academicsPanel > div:first-child {
+                padding: 7px;
+                gap: 3px;
+            }
+
+            #academicsPanel > div:first-child h3 {
+                font-size: 11px;
+                line-height: 1.1;
+            }
+
+            #academicsPanel > div:first-child > div:first-child {
+                gap: 4px;
+            }
+
+            #academicsPanel > div:first-child > div:first-child > span {
+                padding: 2px 5px;
+                font-size: 11px;
+            }
+
+            #academicsPanel > div:first-child > p {
+                margin-top: 2px;
+                font-size: 11px;
+            }
+
+            #sceneAbout .mobile-credentials-grid {
+                gap: 4px;
+            }
+
+            #sceneAbout .mobile-credentials-grid > div {
+                padding: 5px;
+            }
+
+            #sceneAbout .mobile-credential-meta {
+                gap: 1px 3px;
+            }
+
+            #sceneAbout .mobile-credential-meta > span {
+                font-size: 11px;
+            }
+
+            #sceneAbout .mobile-credentials-grid h4 {
+                font-size: 11px;
+                line-height: 1.1;
+            }
+
+            #sceneAbout .mobile-credentials-grid p {
+                display: none;
+            }
+
+            #strengthsPanel > div {
+                padding: 5px 8px;
+                gap: 4px;
+            }
+
+            #strengthsPanel h3 {
+                font-size: 11px;
+                line-height: 1.1;
+            }
+
+            #strengthsPanel p {
+                margin-top: 2px;
+                font-size: 11px;
+                line-height: 1.25;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html, body {
+                transition: none !important;
+            }
+
+            #topNavigation > button,
+            #topNavigation > nav,
+            #topNavigation > div,
+            .nav-pill-btn {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .spatial-scene {
+                transition: opacity 160ms ease-out !important;
+            }
+
+            .project-3d-slot,
+            .project-carousel-card {
+                transition: none !important;
+            }
+
+            .animate-pulse,
+            .animate-ping {
+                animation: none !important;
+            }
+        }
+
+        .motion-reduced .spatial-scene {
+            transition: opacity 160ms ease-out !important;
+        }
+
+        .motion-reduced .project-3d-slot,
+        .motion-reduced .project-carousel-card {
+            transition: none !important;
+        }
+
+        .motion-reduced .animate-pulse,
+        .motion-reduced .animate-ping {
+            animation: none !important;
+        }
+
+        @media (max-width: 639px) {
+            .nav-pill-btn {
+                min-width: 44px;
+            }
+
+            .altitude-labels > button {
+                min-height: 44px;
+                font-size: 11px;
+            }
+
+            #sceneHero > div > div:last-child > * {
+                min-height: 44px;
+                font-size: 11px;
+            }
+
+            #projectFilterBar .proj-filter-btn,
+            #sceneProjects [aria-label="Project carousel controls"] > button {
+                min-height: 44px;
+                font-size: 11px;
+            }
+
+            #workStageDots button {
+                min-height: 44px;
+                font-size: 11px;
+            }
+
+            #aboutTabs [role="tab"] {
+                min-height: 44px;
+                font-size: 11px;
+                white-space: normal;
+            }
+
+            #aboutTabs .about-tab-label {
+                overflow: visible;
+                text-overflow: clip;
+                white-space: normal;
+            }
+
+            #aboutTabs .about-tab-index {
+                font-size: 11px;
+            }
+
+            #aboutTabs .about-tab-slash {
+                font-size: 10px;
+            }
+
+            .about-heading > div {
+                font-size: 10px;
+            }
+
+            .about-heading > div > span:first-child {
+                display: none;
+            }
+
+            #sceneAbout .coursework-disclosure > summary {
+                min-height: 44px;
+                font-size: 11px;
+            }
+
+            #sceneAbout .mobile-credential-meta > span {
+                font-size: 11px;
+            }
+
+            #academicsPanel > div:first-child h3,
+            #sceneAbout .mobile-credentials-grid h4 {
+                font-size: 11px;
+                line-height: 1.2;
+            }
+
+            #academicsPanel > div:first-child > div:first-child > span,
+            #academicsPanel > div:first-child > p {
+                font-size: 11px;
+            }
+
+            #strengthsPanel h3 {
+                font-size: 11px;
+                line-height: 1.2;
+            }
+
+            #strengthsPanel p {
+                font-size: 11px;
+                line-height: 1.2;
+            }
+
+            #sceneContact .max-w-3xl > div:nth-of-type(2) > a,
+            #sceneContact .max-w-3xl > div:nth-of-type(3) > button {
+                min-height: 44px;
+                font-size: 11px;
+            }
+
+            #sceneContact #contactEmailText {
+                font-size: 11px;
+            }
+        }

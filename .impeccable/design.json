@@ -1,0 +1,318 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-01T05:10:00+08:00",
+  "title": "Design System: Ammar Syahansyah Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "accent-day": {
+        "role": "primary",
+        "displayName": "Signal Orange, Daylight",
+        "canonical": "#FF4F00",
+        "tonalRamp": ["#1A0401", "#421203", "#702104", "#9E3613", "#D14A1C", "#F96E43", "#FBAF98", "#FEE9E3"]
+      },
+      "accent-night": {
+        "role": "primary",
+        "displayName": "Bright Orange, Night Sonar",
+        "canonical": "#FF5E1A",
+        "tonalRamp": ["#1B0300", "#431100", "#6E2407", "#A03401", "#D44701", "#FB6C38", "#FCAE94", "#FEE9E2"]
+      },
+      "accent-sea-day": {
+        "role": "primary",
+        "displayName": "Hydrographic Cerulean",
+        "canonical": "#0076B6",
+        "tonalRamp": ["#00131F", "#00283F", "#003D60", "#00527D", "#0076B6", "#42A1D4", "#91D1EF", "#DDF4FF"]
+      },
+      "accent-sea-night": {
+        "role": "primary",
+        "displayName": "Sonar Cyan",
+        "canonical": "#00D7FF",
+        "tonalRamp": ["#00191E", "#00353E", "#005260", "#00768A", "#00A9C6", "#00D7FF", "#75E9FF", "#D8F9FF"]
+      },
+      "accent-deep-day": {
+        "role": "primary",
+        "displayName": "Abyssal Cyan",
+        "canonical": "#00D2FF",
+        "tonalRamp": ["#001A20", "#003845", "#00566A", "#007A96", "#00A7CE", "#00D2FF", "#72E5FF", "#D5F8FF"]
+      },
+      "accent-text-warm": {
+        "role": "semantic",
+        "displayName": "Warm Accent Text",
+        "canonical": "#A93600",
+        "tonalRamp": ["#190800", "#351300", "#551F00", "#7C2C00", "#A93600", "#C64F1A", "#DF8055", "#F5CBB8"]
+      },
+      "accent-text-sea": {
+        "role": "semantic",
+        "displayName": "Sea-Level Accent Text",
+        "canonical": "#00527D",
+        "tonalRamp": ["#00131F", "#00283F", "#003D60", "#00527D", "#0076B6", "#42A1D4", "#91D1EF", "#DDF4FF"]
+      },
+      "accent-text-depth": {
+        "role": "semantic",
+        "displayName": "Deep-Water Accent Text",
+        "canonical": "#7FEAFF",
+        "tonalRamp": ["#00353E", "#005260", "#00768A", "#00A9C6", "#32C8E8", "#7FEAFF", "#B6F3FF", "#E5FBFF"]
+      },
+      "accent-on": {
+        "role": "semantic",
+        "displayName": "Contrast-Selected Accent Foreground",
+        "canonical": "#000000",
+        "tonalRamp": ["#000000", "#101820", "#263642", "#425563", "#637784", "#8799A5", "#B7C2C9", "#EDF1F3"]
+      },
+      "parchment-day": {
+        "role": "neutral",
+        "displayName": "Warm Parchment, Daylight",
+        "canonical": "#F6F4F0",
+        "tonalRamp": ["#0C0B0A", "#252422", "#413F3C", "#5F5D5A", "#7F7D79", "#A09E9A", "#C6C4C0", "#EFEEED"]
+      },
+      "ink-day": {
+        "role": "neutral",
+        "displayName": "Near-Black Ink, Daylight",
+        "canonical": "#141413",
+        "tonalRamp": ["#0B0B0B", "#242423", "#40403F", "#5E5E5C", "#7D7D7C", "#9E9E9D", "#C4C4C3", "#EEEEEE"]
+      },
+      "earth-gray-day": {
+        "role": "neutral",
+        "displayName": "Earth Gray, Daylight",
+        "canonical": "#57554F",
+        "tonalRamp": ["#0C0B09", "#252420", "#42403A", "#605D57", "#7F7D77", "#A09E98", "#C6C4BE", "#EFEEED"]
+      },
+      "glass-day": {
+        "role": "neutral",
+        "displayName": "White Glass, Daylight",
+        "canonical": "rgba(255, 255, 255, 0.88)",
+        "tonalRamp": ["#0B0B0B", "#242424", "#40403F", "#5E5D5D", "#7D7D7D", "#9E9E9E", "#C4C4C3", "#EEEEEE"]
+      },
+      "card-day": {
+        "role": "neutral",
+        "displayName": "Soft White Card, Daylight",
+        "canonical": "rgba(255, 255, 255, 0.92)",
+        "tonalRamp": ["#0B0B0B", "#242424", "#40403F", "#5E5D5D", "#7D7D7D", "#9E9E9E", "#C4C4C4", "#EEEEEE"]
+      },
+      "border-day": {
+        "role": "neutral",
+        "displayName": "Hairline Ink, Daylight",
+        "canonical": "rgba(20, 20, 19, 0.14)",
+        "tonalRamp": ["#0C0B0A", "#252422", "#41403D", "#5F5D5A", "#7F7D7A", "#A09E9B", "#C5C4C1", "#EFEEED"]
+      },
+      "depth-night": {
+        "role": "neutral",
+        "displayName": "Abyssal Black, Night",
+        "canonical": "#0E100F",
+        "tonalRamp": ["#0B0B0B", "#232424", "#3E403F", "#5C5E5D", "#7B7E7D", "#9C9F9E", "#C2C5C3", "#EEEFEE"]
+      },
+      "moonlight-night": {
+        "role": "neutral",
+        "displayName": "Moonlight, Night",
+        "canonical": "#F2F4F3",
+        "tonalRamp": ["#0B0B0B", "#232424", "#3F403F", "#5C5E5D", "#7C7E7D", "#9D9F9E", "#C3C4C4", "#EEEEEE"]
+      },
+      "sage-gray-night": {
+        "role": "neutral",
+        "displayName": "Sage Gray, Night",
+        "canonical": "#98A29D",
+        "tonalRamp": ["#090C0A", "#202623", "#39423E", "#57605C", "#76807B", "#97A19C", "#BDC7C2", "#ECEFEE"]
+      },
+      "glass-night": {
+        "role": "neutral",
+        "displayName": "Sonar Glass, Night",
+        "canonical": "rgba(14, 18, 22, 0.88)",
+        "tonalRamp": ["#0A0B0D", "#212427", "#3C4044", "#595E63", "#797E82", "#9A9FA4", "#C0C5C9", "#EDEFF0"]
+      },
+      "card-night": {
+        "role": "neutral",
+        "displayName": "Deep Blue-Black Card, Night",
+        "canonical": "rgba(12, 20, 28, 0.92)",
+        "tonalRamp": ["#090B0E", "#1F252B", "#384149", "#565F68", "#757F88", "#96A0AA", "#BCC5CF", "#ECEFF1"]
+      },
+      "border-night": {
+        "role": "neutral",
+        "displayName": "Hairline Moonlight, Night",
+        "canonical": "rgba(242, 244, 243, 0.15)",
+        "tonalRamp": ["#0B0B0B", "#232424", "#3E403F", "#5C5E5D", "#7B7E7D", "#9D9F9E", "#C2C5C3", "#EEEEEE"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Spatial Display",
+        "purpose": "Hero headlines, scaled across mobile and desktop."
+      },
+      "accent-italic": {
+        "displayName": "Serif Accent",
+        "purpose": "Short italic phrases emphasized inside large headings."
+      },
+      "title": {
+        "displayName": "Section and Card Titles",
+        "purpose": "Scene headings and content-card titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Supporting copy and longer descriptions."
+      },
+      "label": {
+        "displayName": "Instrument Mono",
+        "purpose": "Coordinates, telemetry, metadata, and compact 9–11px labels; smaller sizes are reserved for short metadata."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-ambient",
+        "value": "0 12px 32px -8px rgba(10, 18, 28, 0.08)",
+        "purpose": "Soft separation beneath resting content cards."
+      },
+      {
+        "name": "gallery-hover-day",
+        "value": "0 34px 75px -12px rgba(255, 79, 0, 0.38), 0 0 0 2px var(--accent), 0 0 42px -4px rgba(255, 115, 40, 0.35)",
+        "purpose": "Structural highlight for the hovered gallery card in daylight."
+      },
+      {
+        "name": "gallery-hover-night",
+        "value": "0 36px 80px -12px rgba(255, 107, 43, 0.45), 0 0 0 2px var(--accent), 0 0 48px -4px rgba(255, 107, 43, 0.4)",
+        "purpose": "Structural highlight for the hovered gallery card in night mode."
+      }
+    ],
+    "motion": [
+      {
+        "name": "theme-transition",
+        "value": "0.45s cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Background and text color changes between daylight and night sonar."
+      },
+      {
+        "name": "gallery-card",
+        "value": "0.46s cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Project-card transform and shadow response."
+      },
+      {
+        "name": "surface-hover",
+        "value": "0.32s ease",
+        "purpose": "Border-color and compact control transitions."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "ambient motion paused",
+        "purpose": "The canvas and automatic gallery rotation pause by default when the user requests reduced motion."
+      },
+      {
+        "name": "manual-motion-pause",
+        "value": "user controlled",
+        "purpose": "A persistent control pauses ambient canvas, gallery, and preview-video motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "header-compact",
+        "value": "900px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled pill action used for the strongest call to action.",
+      "html": "<button class='ds-button-primary'>Explore Projects <span aria-hidden='true'>↓</span></button>",
+      "css": ".ds-button-primary { display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; border: 0; border-radius: 9999px; background: var(--text-primary); color: var(--bg-primary); font: 500 14px/1.5 'Space Grotesk', sans-serif; transition: opacity 0.2s ease; } .ds-button-primary:hover { opacity: 0.9; } .ds-button-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; } .ds-button-primary:active { opacity: 0.8; }"
+    },
+    {
+      "name": "Secondary Action",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Translucent outlined action for supporting navigation and links.",
+      "html": "<button class='ds-button-secondary'>Experience Deck <span aria-hidden='true'>↘</span></button>",
+      "css": ".ds-button-secondary { display: inline-flex; align-items: center; gap: 8px; padding: 14px 20px; border: 1px solid var(--border-color); border-radius: 9999px; background: var(--bg-surface); color: var(--text-primary); backdrop-filter: blur(16px) saturate(160%); font: 500 14px/1.5 'Space Grotesk', sans-serif; transition: border-color 0.32s ease, color 0.2s ease; } .ds-button-secondary:hover { border-color: var(--accent); } .ds-button-secondary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; } .ds-button-secondary:active { opacity: 0.82; }"
+    },
+    {
+      "name": "Project Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip-selected",
+      "description": "Mono category filter with selected and unselected states.",
+      "html": "<button class='ds-chip ds-chip-selected'>All (7)</button> <button class='ds-chip ds-chip-default'>AI &amp; ML</button>",
+      "css": ".ds-chip { padding: 4px 12px; border-radius: 9999px; font: 400 11px/1.5 'JetBrains Mono', monospace; transition: color 0.2s ease, border-color 0.32s ease; } .ds-chip-selected { border: 1px solid var(--text-primary); background: var(--text-primary); color: var(--bg-primary); } .ds-chip-default { border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-muted); } .ds-chip-default:hover { color: var(--text-primary); border-color: var(--accent); } .ds-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }"
+    },
+    {
+      "name": "Education Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Translucent information card with compact metadata and a credential title.",
+      "html": "<article class='ds-card'><p class='ds-card-meta'>UNIVERSITI KUALA LUMPUR</p><h3>Bachelor of IT (Hons.) in Software Engineering</h3></article>",
+      "css": ".ds-card { padding: 20px; border: 1px solid var(--border-color); border-radius: 16px; background: var(--bg-card); color: var(--text-primary); backdrop-filter: blur(16px) saturate(160%); box-shadow: 0 12px 32px -8px rgba(10, 18, 28, 0.08); } .ds-card-meta { margin: 0 0 8px; color: var(--accent); font: 400 11px/1.5 'JetBrains Mono', monospace; } .ds-card h3 { margin: 0; font: 500 16px/1.4 'Space Grotesk', sans-serif; } .ds-card:hover { border-color: var(--accent); } .ds-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }"
+    },
+    {
+      "name": "Profile Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Compact transparent field used in the profile editor.",
+      "html": "<label class='ds-field'><span>Email</span><input type='email' aria-label='Email'></label>",
+      "css": ".ds-field { display: grid; gap: 4px; color: var(--text-muted); font: 400 12px/1.5 'JetBrains Mono', monospace; } .ds-field input { width: 100%; padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 8px; background: transparent; color: var(--text-primary); font: 400 14px/1.5 'Space Grotesk', sans-serif; } .ds-field input:focus { border-color: var(--accent); } .ds-field input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }"
+    },
+    {
+      "name": "Floating Scene Navigation",
+      "kind": "nav",
+      "refersTo": "nav-glass",
+      "description": "Top-center scene switcher inside a translucent floating pill.",
+      "html": "<nav class='ds-nav' aria-label='Portfolio scenes'><button class='ds-nav-active'>Summit</button><button>Projects</button><button>Experience</button></nav>",
+      "css": ".ds-nav { display: inline-flex; gap: 4px; max-width: 100%; padding: 4px; overflow-x: auto; border: 1px solid var(--border-color); border-radius: 9999px; background: var(--bg-surface); color: var(--text-primary); backdrop-filter: blur(20px) saturate(180%); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); } .ds-nav button { flex: 0 0 auto; padding: 6px 14px; border: 0; border-radius: 9999px; background: transparent; color: var(--text-muted); font: 500 12px/1.5 'Space Grotesk', sans-serif; white-space: nowrap; } .ds-nav button:hover, .ds-nav .ds-nav-active { background: var(--text-primary); color: var(--bg-primary); } .ds-nav button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }"
+    },
+    {
+      "name": "Spatial Project Card",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Clipped portrait media card with an accent-led hover elevation.",
+      "html": "<article class='ds-project-card' tabindex='0'><div class='ds-project-preview'><span>01 · +2,280m</span><span>GEMINI AI · CLOUDFLARE EDGE</span></div><div class='ds-project-copy'><h3>&gt; MyPlate : Multimodal AI Nutrition &amp; Meal Tracker</h3><p>A privacy-conscious nutrition tracker.</p><div class='ds-project-tags'><span>React 18</span><span>Vite</span><span>Tailwind CSS</span></div><footer>Inspect Project Details <span>Open →</span></footer></div></article>",
+      "css": ".ds-project-card { display: flex; flex-direction: column; justify-content: space-between; width: 268px; height: 396px; overflow: hidden; border: 1px solid var(--border-color); border-radius: 26px; background: var(--bg-card); color: var(--text-primary); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); transition: transform 0.46s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.46s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.32s ease; } .ds-project-preview { display: flex; flex: 0 0 11rem; flex-direction: column; justify-content: space-between; padding: 12px; border-bottom: 1px solid var(--border-color); color: var(--text-primary); font: 400 10px/1.5 'JetBrains Mono', monospace; } .ds-project-copy { display: flex; flex: 1; flex-direction: column; justify-content: space-between; padding: 16px; background: var(--bg-card); } .ds-project-copy h3 { margin: 0 0 6px; color: var(--text-primary); font: 600 12px/1.375 'JetBrains Mono', monospace; } .ds-project-copy p { margin: 0; color: var(--text-muted); font: 400 11px/1.625 'Space Grotesk', sans-serif; } .ds-project-tags { display: flex; gap: 4px; padding: 8px 0; border-top: 1px solid var(--border-color); } .ds-project-tags span { padding: 2px 8px; border: 1px solid var(--border-color); border-radius: 9999px; font: 400 9px/1.5 'JetBrains Mono', monospace; } .ds-project-copy footer { display: flex; justify-content: space-between; color: var(--text-muted); font: 400 10px/1.5 'JetBrains Mono', monospace; } .ds-project-copy footer span { color: var(--accent); } .ds-project-card:hover, .ds-project-card:focus-visible { border-color: var(--accent); box-shadow: 0 34px 75px -12px rgba(255, 79, 0, 0.38), 0 0 0 2px var(--accent), 0 0 42px -4px rgba(255, 115, 40, 0.35); } .ds-project-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Cartographer’s Descent",
+    "overview": "The portfolio frames its content as an earth journey: visitors move through five altitude-themed scenes, from cloud summit and mountain plateau to sea surface and seabed. A procedural topographic canvas, elevation telemetry, coordinates, and chapter labels reinforce the map-like narrative. The mood is exploratory and technical, grounded by warm paper tones in daylight and a dark sonar mode.\n\nSpace Grotesk carries the main interface, with Instrument Serif italic reserved for selected emphasis and JetBrains Mono for coordinates, telemetry, and compact labels. Translucent blurred surfaces and rounded controls sit above the spatial backdrop. The components are refined and restrained; depth becomes more pronounced on the interactive project gallery. No visual anti-reference was confirmed.",
+    "keyCharacteristics": [
+      "Five-stage, altitude-led spatial navigation.",
+      "Daylight cartography and night sonar color modes.",
+      "Warm orange accents against restrained neutral surfaces.",
+      "Technical mono labels paired with expressive serif emphasis.",
+      "Layered glass surfaces and interactive 3D project cards."
+    ],
+    "rules": [
+      {
+        "name": "The Two-Mode Rule",
+        "body": "Keep daylight and night colors paired by semantic role; the theme toggle changes the whole surface system, not just the page background.",
+        "section": "colors"
+      },
+      {
+        "name": "The Instrument Label Rule",
+        "body": "Reserve mono and uppercase tracking for metadata and controls; keep longer reading copy in Space Grotesk.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hover Elevation Rule",
+        "body": "Save the strongest shadow and orange outline for the project card that is actively hovered.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the five-stage elevation narrative and its map/sonar telemetry when extending the existing experience.",
+      "Do pair theme-aware backgrounds, text, borders, and accents in both color modes.",
+      "Do use the mono face for short coordinates, status, and interface metadata.",
+      "Do keep high elevation and orange glow tied to the active gallery-card state.",
+      "Do retain visible keyboard focus with the accent outline."
+    ],
+    "donts": [
+      "Don't treat daylight and night colors as interchangeable; use the corresponding theme role.",
+      "Don't turn every content card into a heavily elevated surface; resting cards use restrained shadows.",
+      "Don't replace the open 3D gallery stage with a generic flat grid when extending this signature component.",
+      "Don't use the display serif for long-form body copy; it is currently a short inline accent."
+    ]
+  }
+}

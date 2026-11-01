@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ammar's Journey</title>
+    <meta name="description" content="Ammar Syahansyah Bin Mohd Reza is a software engineer with a Bachelor of Information Technology (Hons.) in Software Engineering and hands-on experience in full-stack development and data analytics.">
+    <link rel="icon" type="image/svg+xml" href="assets/portfolio-icon.svg">
+    <!-- Locally compiled Tailwind utilities -->
+    <link rel="stylesheet" href="tailwind.generated.css">
+    <!-- Google Fonts: Space Grotesk, Instrument Serif, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-sans antialiased selection:bg-[var(--accent)] selection:text-[var(--accent-on)]">
+
+    <!-- SCROLL-DRIVEN PROCEDURAL TOPOGRAPHY CANVAS BACKGROUND -->
+    <canvas id="topoCanvas" aria-hidden="true" class="fixed inset-0 z-0 w-full h-full pointer-events-none"></canvas>
+
+    <!-- APPLE-STYLE FLOATING TOP PILL NAVIGATION -->
+    <header id="topNavigation" class="fixed left-0 right-0 z-40 flex items-center justify-between px-4 pointer-events-none top-5 sm:px-8">
+        <!-- Brand Identity Pill -->
+        <button onclick="scrubToProgress(0)" class="pointer-events-auto min-h-11 apple-glass border hairline-border rounded-full px-4 py-2 flex items-center space-x-2.5 shadow-sm hover:border-[var(--accent)] transition-colors">
+            <span aria-hidden="true" class="w-2 h-2 rounded-full bg-[var(--accent)]"></span>
+            <span id="navOwnerName" class="text-xs font-medium tracking-tight uppercase sm:text-sm">Ammar's Journey</span>
+        </button>
+
+        <!-- Center Scene Switcher Pill -->
+        <nav aria-label="Portfolio scenes" class="pointer-events-auto apple-glass border hairline-border rounded-full p-1 flex items-center space-x-0.5 sm:space-x-1 shadow-sm overflow-x-auto max-w-[60vw] sm:max-w-none">
+            <button onclick="scrubToProgress(0.0)" data-nav-scene="0" aria-label="Go to Clouds scene" class="nav-pill-btn min-h-11 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all whitespace-nowrap">
+                Clouds
+            </button>
+            <button onclick="scrubToProgress(0.22)" data-nav-scene="1" aria-label="Go to Peak scene" class="nav-pill-btn min-h-11 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all whitespace-nowrap">
+                Peaks
+            </button>
+            <button onclick="scrubToProgress(0.42)" data-nav-scene="2" aria-label="Go to Terrain scene" class="nav-pill-btn min-h-11 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all whitespace-nowrap">
+                Terrain
+            </button>
+            <button onclick="scrubToProgress(0.82)" data-nav-scene="3" aria-label="Go to Sea scene" class="nav-pill-btn min-h-11 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all whitespace-nowrap">
+                Sea
+            </button>
+            <button onclick="scrubToProgress(1.0)" data-nav-scene="4" aria-label="Go to Seabed scene" class="nav-pill-btn min-h-11 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all whitespace-nowrap">
+                Seabed
+            </button>
+        </nav>
+
+        <!-- Right Telemetry & Utility Pill -->
+        <div class="pointer-events-auto apple-glass border hairline-border rounded-full px-3.5 py-1.5 flex items-center space-x-3 shadow-sm">
+            <div class="hidden md:flex items-center space-x-2 font-mono text-[11px] text-[var(--text-muted)] pr-2 border-r hairline-border">
+                <span id="hudModeBadge" class="text-[var(--accent-text)] font-medium">ATMOS</span>
+                <span>·</span>
+                <span id="hudCoords">03.139° N</span>
+                <span class="text-[var(--accent-text)]">·</span>
+                <span id="hudElevation" class="text-[var(--text-primary)] font-medium">+2,840m</span>
+            </div>
+
+            <button onclick="toggleTheme()" class="inline-flex items-center justify-center transition-colors rounded-full min-w-11 min-h-11 hover:bg-black/5 dark:hover:bg-white/5" title="Toggle Daylight Cartography / Night Sonar Mode" aria-label="Toggle color theme" aria-pressed="false">
+                <svg id="sunIcon" class="w-3.5 h-3.5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5" stroke-width="1.75"/>
+                    <path stroke-linecap="round" stroke-width="1.75" d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                </svg>
+                <svg id="moonIcon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                </svg>
+            </button>
+
+            <button id="motionToggleBtn" onclick="toggleMotion()" class="inline-flex items-center justify-center transition-colors rounded-full min-w-11 min-h-11 hover:bg-black/5 dark:hover:bg-white/5" title="Pause ambient motion" aria-label="Pause ambient motion" aria-pressed="false">
+                <svg id="motionPauseIcon" aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-width="2" d="M9 5v14m6-14v14"/>
+                </svg>
+                <svg id="motionPlayIcon" aria-hidden="true" class="hidden w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 5 12 7-12 7V5z"/>
+                </svg>
+            </button>
+
+        </div>
+    </header>
+
+    <!-- RIGHT-EDGE VERTICAL ALTITUDE & BATHYMETRIC SCRUBBER -->
+    <aside id="altitudeScrubber" aria-hidden="false" class="altitude-scrubber fixed right-5 top-1/2 -translate-y-1/2 z-40 hidden sm:flex flex-col items-end space-y-2.5">
+        <div id="scrubberZoneBadge" class="px-2.5 py-0.5 rounded-full apple-glass border hairline-border font-mono text-[9px] tracking-widest uppercase text-[var(--accent-text)] shadow-sm">
+            STRATOSPHERE
+        </div>
+
+        <div class="flex items-center space-x-2.5">
+            <!-- Elevation Reference Labels -->
+            <div class="altitude-labels h-64 font-mono text-[9px] text-[var(--text-muted)]">
+                <button data-altitude-stop="0" onclick="scrubToProgress(0.0)" class="min-h-11 inline-flex items-center hover:text-[var(--accent-text)] transition-colors">+2,840m</button>
+                <button data-altitude-stop="1" onclick="scrubToProgress(0.22)" class="min-h-11 inline-flex items-center hover:text-[var(--accent-text)] transition-colors">+2,050m</button>
+                <button data-altitude-stop="2" onclick="scrubToProgress(0.42)" class="min-h-11 inline-flex items-center hover:text-[var(--accent-text)] transition-colors">+1,180m</button>
+                <button data-altitude-stop="3" onclick="scrubToProgress(0.82)" class="min-h-11 inline-flex items-center text-[var(--accent-text)] font-medium hover:underline">0m MSL</button>
+                <button data-altitude-stop="4" onclick="scrubToProgress(1.0)" class="min-h-11 inline-flex items-center hover:text-[var(--accent-text)] transition-colors">-1,200m</button>
+            </div>
+
+            <div id="altitudeTrack" role="slider" tabindex="0" aria-label="Portfolio altitude" aria-valuemin="-1200" aria-valuemax="2840" aria-valuenow="2840" aria-valuetext="2,840 meters, cloud summit" aria-orientation="vertical" class="relative h-64 border rounded-full shadow-sm cursor-pointer w-11 apple-glass hairline-border touch-none" title="Drag or use arrow keys to move from Clouds (+2,840m) to Seabed (-1,200m)">
+                <!-- Tick Marks -->
+                <span class="altitude-tick w-2.5 h-[1.5px] bg-[var(--text-muted)] opacity-60" data-altitude-stop="0"></span>
+                <span class="altitude-tick w-2 h-[1px] bg-[var(--text-muted)] opacity-45" data-altitude-stop="1"></span>
+                <span class="altitude-tick w-2 h-[1px] bg-[var(--text-muted)] opacity-45" data-altitude-stop="2"></span>
+                <!-- Sea-level marker aligned with the 0m progress stop -->
+                <span class="altitude-tick w-3.5 h-[1.5px] bg-[var(--accent)] opacity-85" data-altitude-stop="3" title="Sea Level 0m"></span>
+                <span class="altitude-tick w-2.5 h-[1.5px] bg-[var(--text-muted)] opacity-60" data-altitude-stop="4"></span>
+
+                <!-- Active Thumb Indicator -->
+                <div id="altitudeThumb" class="absolute left-1/2 -translate-x-1/2 top-0 w-3.5 h-3.5 rounded-full bg-[var(--accent)] shadow-md transition-transform duration-75"></div>
+            </div>
+        </div>
+
+        <div class="text-right">
+            <div id="scrubberReadout" class="font-mono text-xs font-medium text-[var(--text-primary)]">
+                +2,840m
+            </div>
+            <div id="scrubberPressure" class="font-mono text-[11px] text-[var(--text-muted)]">
+                715 hPa · AIR
+            </div>
+        </div>
+    </aside>
+
+    <!-- BOTTOM SPATIAL GESTURE HINT / CHAPTER BAR -->
+    <footer class="fixed left-0 right-0 z-40 flex items-center justify-between px-6 pointer-events-none bottom-5 sm:px-10">
+        <div class="font-mono text-[11px] text-[var(--text-muted)] flex items-center space-x-2">
+            <span id="chapterIndex" class="text-[var(--accent-text)] font-medium">01 / 05</span>
+            <span>—</span>
+            <span id="chapterName">CLOUD LAYER · SUMMIT</span>
+        </div>
+
+        <!-- Center Interactive Scroll Prompt -->
+        <button id="nextStageBtn" onclick="stepForward()" class="pointer-events-auto apple-glass border hairline-border rounded-full px-4 min-h-11 flex items-center space-x-2 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--accent)] transition-all shadow-sm">
+            <span id="scrollHintLabel">Glide or scroll to descend</span>
+            <span id="scrollHintArrow" class="text-[var(--accent-text)] transition-transform">↓</span>
+        </button>
+
+        <div class="hidden sm:block font-mono text-[11px] text-[var(--text-muted)]">
+            <span id="footerLocationText">03°08'20"N 101°41'13"E · Kuala Lumpur, MY</span>
+        </div>
+    </footer>
+
+    <!-- FIXED 100VH SPATIAL VIEWPORT (ZERO TRADITIONAL SCROLL) -->
+    <main id="spatialViewport" class="fixed inset-0 z-10 w-full h-full overflow-hidden">
+
+        <!-- ===================================================================
+             SCENE 0: CLOUD LAYER / SUMMIT (Altitude +2,840m — Progress 0.00 -> 0.14)
+             =================================================================== -->
+        <section id="sceneHero" class="px-6 spatial-scene is-interactive sm:px-12">
+            <div class="w-full max-w-4xl">
+                <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full border hairline-border card-surface font-mono text-xs uppercase tracking-widest mb-6">
+                    <span class="text-[var(--accent-text)]">☁ CLOUD SUMMIT · +2,840M</span>
+                    <span class="text-[var(--text-muted)]">/</span>
+                    <span id="heroRoleBadge" class="text-[var(--text-muted)]">Software Engineer · Data Analyst · IT Support</span>
+                </div>
+
+                <p class="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)] mb-2">
+                    AMMAR SYAHANSYAH BIN MOHD REZA · <span id="heroLocationLabel" class="text-[var(--text-primary)]">Kuala Lumpur, MY</span>
+                </p>
+
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.04] mb-6">
+                    Building <span class="font-serif italic font-normal text-[var(--accent-text)]">scalable, user-focused</span> applications and intelligent systems.
+                </h1>
+
+                <p id="heroBioText" class="text-base sm:text-lg text-[var(--text-muted)] max-w-2xl leading-relaxed mb-8">
+                    Software Engineer with a <span class="text-[var(--text-primary)] font-medium">Bachelor of Information Technology (Hons.) in Software Engineering</span> and hands-on experience in full-stack development and data analytics.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             SCENE 1: HIGH PLATEAU — SELECTED PROJECTS (+2,050m — Progress 0.14 -> 0.34)
+             =================================================================== -->
+        <section id="sceneProjects" class="px-4 spatial-scene sm:px-10">
+            <div class="w-full max-w-6xl">
+                <!-- Header + Category Filter Pills + Carousel Telemetry Controls -->
+                <div class="flex flex-col justify-between gap-3 mb-10 lg:flex-row lg:items-end sm:mb-12">
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-[var(--accent-text)] mb-1">
+                            <span>▲ SUMMIT PEAKS · +2,050M</span>
+                            <span class="text-[var(--text-muted)]">/</span>
+                            <span class="text-[var(--text-muted)]">Portfolio Archive</span>
+                            <span id="carouselStatusBadge" class="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full border hairline-border card-surface text-[11px] text-[var(--text-primary)]">
+                                <span id="carouselStatusDot" aria-hidden="true" class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                <span id="carouselStatusText">3D GALLERY: ROTATING</span>
+                            </span>
+                        </div>
+                        <h2 class="text-2xl font-medium tracking-tight sm:text-3xl">Selected Projects &amp; Prototypes</h2>
+                        <p class="text-xs sm:text-sm text-[var(--text-muted)]">
+                            A selection of software projects and prototypes. <span class="font-mono text-[11px] text-[var(--accent-text)]">Select a 3D card to pause and inspect · Drag or use arrows to spin.</span>
+                        </p>
+                    </div>
+
+                    <!-- Right Controls: Category Filters + Manual Prev/Next -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div id="projectFilterBar" class="flex flex-wrap items-center gap-1.5">
+                            <button onclick="filterProjects('all')" data-proj-filter="all" aria-pressed="true" class="proj-filter-btn min-h-11 px-3 py-1 rounded-full font-mono text-[11px] bg-[var(--text-primary)] text-[var(--bg-primary)] transition-all">
+                                All (7)
+                            </button>
+                            <button onclick="filterProjects('ai')" data-proj-filter="ai" aria-pressed="false" class="proj-filter-btn min-h-11 px-3 py-1 rounded-full font-mono text-[11px] border hairline-border card-surface text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all">
+                                AI &amp; ML
+                            </button>
+                            <button onclick="filterProjects('fullstack')" data-proj-filter="fullstack" aria-pressed="false" class="proj-filter-btn min-h-11 px-3 py-1 rounded-full font-mono text-[11px] border hairline-border card-surface text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all">
+                                Full-Stack &amp; Cloud
+                            </button>
+                            <button onclick="filterProjects('3d')" data-proj-filter="3d" aria-pressed="false" class="proj-filter-btn min-h-11 px-3 py-1 rounded-full font-mono text-[11px] border hairline-border card-surface text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all">
+                                3D &amp; Real-Time
+                            </button>
+                        </div>
+
+                        <!-- Carousel View Mode and Navigation -->
+                        <div class="flex items-center gap-1" role="group" aria-label="Project carousel controls">
+                            <button onclick="nudgeProjectCarousel(-1)" class="min-w-11 min-h-11 inline-flex items-center justify-center rounded-full border hairline-border card-surface text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--accent)] transition-colors" title="Previous project" aria-label="Previous project">
+                                <svg aria-hidden="true" viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                            </button>
+                            <button onclick="nudgeProjectCarousel(1)" class="min-w-11 min-h-11 inline-flex items-center justify-center rounded-full border hairline-border card-surface text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-[var(--accent)] transition-colors" title="Next project" aria-label="Next project">
+                                <svg aria-hidden="true" viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3D Curved Spatial Gallery Stage (Inspired by Reference Image) -->
+                <div id="projectSpatialStage" class="select-none spatial-gallery-stage cursor-grab active:cursor-grabbing">
+                    <!-- Ambient Warm Studio Backlight Glow behind the 3D Cards -->
+                    <div class="absolute -translate-y-1/2 rounded-full pointer-events-none inset-x-12 top-1/2 h-72 opacity-40 dark:opacity-30 blur-3xl"
+                         style="background: radial-gradient(circle at 50% 50%, rgba(255, 115, 45, 0.45), rgba(255, 175, 120, 0.22) 48%, transparent 78%);"></div>
+
+                    <div id="projects-3d-ring" class="spatial-gallery-ring">
+                        <!-- 3D Portrait Cards populated dynamically via JS -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             SCENE 2: ALPINE RIDGE — EXPERIENCE & SYSTEMS DECK (+1,180m — Progress 0.34 -> 0.72)
+             =================================================================== -->
+        <section id="sceneWork" class="px-6 spatial-scene sm:px-12">
+            <div class="w-full max-w-5xl">
+                <!-- Section Top Header + Sub-Stage Dots -->
+                <div class="flex flex-col justify-between gap-4 mb-6 sm:flex-row sm:items-center">
+                    <div>
+                        <span class="font-mono text-xs uppercase tracking-widest text-[var(--accent-text)] block mb-1">
+                            ⛰ TERRACED LAND &amp; VALLEY · +1,180M · PROFESSIONAL EXPERIENCE
+                        </span>
+                        <h2 class="text-xl font-medium tracking-tight sm:text-2xl">Professional Experience</h2>
+                    </div>
+
+                    <!-- Experience Quick-Jump Pills -->
+                    <div id="workStageDots" class="flex flex-wrap items-center gap-2">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <!-- 3D Spatial Card Deck Container -->
+                <div id="workDeckContainer" class="relative w-full h-[450px] sm:h-[420px]">
+                    <!-- Cards populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             SCENE 3: SEA SURFACE / COASTAL HORIZON (0m MSL — Progress 0.72 -> 0.89)
+             =================================================================== -->
+        <section id="sceneAbout" class="px-6 spatial-scene sm:px-12">
+            <div class="w-full max-w-5xl about-layout">
+                <div class="about-header">
+                    <div id="aboutTabs" role="tablist" aria-label="Academics and strengths" class="about-tabs">
+                        <button id="academicsTab" type="button" role="tab" aria-label="Academic foundation and certification" aria-selected="true" aria-controls="academicsPanel" tabindex="0" onclick="selectAboutTab('academics')" class="about-tab-btn">
+                            <span class="about-tab-index">01</span>
+                            <span class="about-tab-label">Academic Foundation</span>
+                            <span class="about-tab-slash" aria-hidden="true">/</span>
+                        </button>
+                        <button id="strengthsTab" type="button" role="tab" aria-label="Core professional strengths" aria-selected="false" aria-controls="strengthsPanel" tabindex="-1" onclick="selectAboutTab('strengths')" class="about-tab-btn">
+                            <span class="about-tab-index">02</span>
+                            <span class="about-tab-label">Professional Strengths</span>
+                            <span class="about-tab-slash" aria-hidden="true">/</span>
+                        </button>
+                    </div>
+                    <div class="about-heading">
+                        <div id="academicsEyebrow" class="inline-flex items-center space-x-2 font-mono text-xs uppercase tracking-widest text-[var(--accent-text)]">
+                            <span>[ ≈ SEA SURFACE · 0M MSL ]</span>
+                            <span class="text-[var(--text-muted)]">— EDUCATION &amp; CERTIFICATION</span>
+                        </div>
+                        <h2 id="academicsHeading" class="font-medium tracking-tight leading-[1.1]">
+                            Software Engineering education and a <span class="font-serif italic font-normal text-[var(--accent-text)]">Google Analytics 4 certification.</span>
+                        </h2>
+                        <div id="strengthsEyebrow" class="hidden inline-flex items-center space-x-2 font-mono text-xs uppercase tracking-widest text-[var(--accent-text)]" hidden>
+                            <span>[ ≈ SEA SURFACE · 0M MSL ]</span>
+                            <span class="text-[var(--text-muted)]">— PROFESSIONAL STRENGTHS</span>
+                        </div>
+                        <h2 id="strengthsHeading" class="hidden font-medium tracking-tight leading-[1.1]" hidden>
+                            Core Professional Strengths
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="p-4 border about-info-card rounded-3xl hairline-border card-surface sm:p-6">
+                    <!-- Academic Degrees & Certification -->
+                    <div id="academicsPanel" role="tabpanel" aria-labelledby="academicsTab" class="space-y-4">
+
+                    <!-- UniKL Degree Card -->
+                    <div class="p-4 sm:p-5 rounded-2xl border hairline-border card-surface space-y-2.5">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <h3 class="text-sm font-medium sm:text-base">Bachelor of Information Technology (Hons.) in Software Engineering</h3>
+                            <span class="px-2.5 py-0.5 rounded-full bg-[var(--accent)]/15 text-[var(--accent-text)] font-mono text-xs">CGPA: 3.45</span>
+                        </div>
+                        <p class="font-mono text-xs text-[var(--text-muted)]">Universiti Kuala Lumpur (UniKL)<span class="mobile-education-dates"> · Feb 2023 – Jul 2026</span></p>
+                        <details data-collapse-on-mobile open class="coursework-disclosure">
+                            <summary class="mobile-disclosure-summary min-h-11 flex items-center justify-between gap-3 font-mono text-[11px] text-[var(--accent-text)] cursor-pointer">
+                                Coursework &amp; core topics
+                                <span aria-hidden="true" class="disclosure-chevron">⌄</span>
+                            </summary>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 text-xs text-[var(--text-muted)]">
+                                <div><span class="text-[var(--text-primary)] font-medium">Programming &amp; Logic:</span> OOP, Data Structures &amp; Algorithms</div>
+                                <div><span class="text-[var(--text-primary)] font-medium">System &amp; Design:</span> Requirements Eng., Architecture, UML, UI</div>
+                                <div><span class="text-[var(--text-primary)] font-medium">Data &amp; Networks:</span> DBMS, Network Fundamentals, OS Admin</div>
+                                <div><span class="text-[var(--text-primary)] font-medium">Quality &amp; Mgmt:</span> Software Testing, V&amp;V, Technopreneurship, Ethics</div>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Kolej Vokasional Ipoh and GA4 Certification -->
+                    <div class="mobile-credentials-grid grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <div class="p-4 border rounded-2xl hairline-border card-surface">
+                            <div class="flex items-center justify-between mb-1 mobile-credential-meta">
+                                <span class="font-mono text-[11px] text-[var(--accent-text)]">KOLEJ VOKASIONAL IPOH</span>
+                                <span class="font-mono text-xs font-medium">CGPA: 3.69</span>
+                            </div>
+                            <h4 class="text-sm font-medium" aria-label="DVM in Information Technology; Sijil Kemahiran Malaysia (SKM), Level 3" title="Sijil Kemahiran Malaysia (SKM), Level 3">DVM in Information Technology · SKM Level 3</h4>
+                        </div>
+
+                        <div class="p-4 border rounded-2xl hairline-border card-surface">
+                            <div class="flex items-center justify-between mb-1 mobile-credential-meta">
+                                <span class="font-mono text-[11px] text-[var(--accent-text)]">ISSUED BY GOOGLE</span>
+                                <span class="font-mono text-[11px] text-[var(--text-muted)]">VERIFIED</span>
+                            </div>
+                            <h4 class="text-sm font-medium">Google Analytics 4 (GA4) Certification</h4>
+                            <p class="text-xs text-[var(--text-muted)] mt-0.5">Acquired during Data Analytics Internship</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Strengths -->
+                <div id="strengthsPanel" role="tabpanel" aria-labelledby="strengthsTab" class="hidden space-y-3.5" hidden>
+                <div class="flex items-start justify-between gap-4 p-5 border rounded-2xl hairline-border card-surface">
+                        <div>
+                            <h3 class="text-base font-medium">Full-Stack Architecture</h3>
+                            <p class="text-xs sm:text-sm text-[var(--text-muted)] mt-1">
+                                <span class="strengths-full-copy">                                                                Python, JavaScript, HTML, CSS, SQL, React.js, React Konva, Flask, Three.js, and CSS3D.</span>
+                                <span class="strengths-mobile-copy">Python, JavaScript, SQL, React.js &amp; Flask.</span>
+                            </p>
+                        </div>
+                        <span class="font-mono text-xs text-[var(--accent-text)]">01</span>
+                    </div>
+
+                    <div class="flex items-start justify-between gap-4 p-5 border rounded-2xl hairline-border card-surface">
+                        <div>
+                            <h3 class="text-base font-medium">Data Analytics &amp; Tracking</h3>
+                            <p class="text-xs sm:text-sm text-[var(--text-muted)] mt-1">
+                                <span class="strengths-full-copy">                                                                Google Tag Manager (GTM), Google Analytics 4 (GA4), data-layer audits, Google Web Designer, and Google Studio.</span>
+                                <span class="strengths-mobile-copy">GTM, GA4, data-layer audits &amp; ad technology.</span>
+                            </p>
+                        </div>
+                        <span class="font-mono text-xs text-[var(--accent-text)]">02</span>
+                    </div>
+
+                    <div class="flex items-start justify-between gap-4 p-5 border rounded-2xl hairline-border card-surface">
+                        <div>
+                            <h3 class="text-base font-medium">Systems &amp; IT Operations</h3>
+                            <p class="text-xs sm:text-sm text-[var(--text-muted)] mt-1">
+                                    <span class="strengths-full-copy">Windows/Linux configuration, software deployment, hardware diagnostics, technical support, and IT asset management.</span>
+                                    <span class="strengths-mobile-copy">Windows/Linux, deployment, hardware &amp; IT support.</span>
+                            </p>
+                        </div>
+                        <span class="font-mono text-xs text-[var(--accent-text)]">03</span>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             SCENE 3: ABYSSAL SEABED TRENCH (Depth -1,200m — Progress 0.88 -> 1.00)
+             =================================================================== -->
+        <section id="sceneContact" class="px-6 spatial-scene sm:px-12">
+            <div class="flex flex-col items-center w-full max-w-3xl text-center">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border hairline-border card-surface font-mono text-xs uppercase tracking-widest text-[var(--accent-text)] mb-6">
+                    <span>◎ ABYSSAL SEABED · -1,200M</span>
+                    <span class="text-[var(--text-muted)]">/</span>
+                    <span class="text-[var(--text-muted)]">HYDROGRAPHIC SONAR &amp; DOSSIER</span>
+                </div>
+
+                <h2 class="text-4xl sm:text-6xl font-medium tracking-tight leading-[1.06] mb-5">
+                    Anchored at the <span class="font-serif italic font-normal text-[var(--accent-text)]">seabed</span>—ready for engineering &amp; analytics missions.
+                </h2>
+
+                <p class="text-[var(--text-muted)] text-sm sm:text-base max-w-xl mb-8 leading-relaxed">
+                    Connect with <span class="text-[var(--text-primary)] font-medium">Ammar Syahansyah Bin Mohd Reza</span> via LinkedIn, inspect repositories on GitHub, trigger a seabed sonar ping, or download the official curriculum vitae below.
+                </p>
+
+                <!-- Direct Portfolio Links & Email Copy -->
+                <div class="flex flex-wrap items-center justify-center gap-3 mb-6">
+                    <a href="https://linkedin.com/in/ammar-syahansyah-1230209061782825200" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] text-sm font-medium hover:opacity-90 transition-opacity flex items-center space-x-2">
+                        <span>LinkedIn Profile</span>
+                        <span>↗</span>
+                    </a>
+
+                    <a href="https://github.com/legarelle" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-full border hairline-border card-surface text-sm font-medium hover:border-[var(--accent)] transition-colors flex items-center space-x-2">
+                        <span>GitHub (@legarelle)</span>
+                        <span>↗</span>
+                    </a>
+
+                    <a href="https://portfolio.ammarcastelo.workers.dev/pdf/Ammar_CV.pdf" target="_blank" rel="noopener noreferrer" class="px-6 py-3.5 rounded-full border hairline-border card-surface text-sm font-medium hover:border-[var(--accent)] transition-colors flex items-center space-x-2">
+                        <span>Download CV (PDF)</span>
+                        <span class="text-[var(--accent-text)]">↓</span>
+                    </a>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
+                    <button onclick="copyEmail()" class="group inline-flex items-center space-x-3 px-5 py-3 rounded-full border hairline-border card-surface hover:border-[var(--accent)] transition-all shadow-sm">
+                        <span id="contactEmailText" class="font-mono text-xs sm:text-sm">ammarcastelo@gmail.com</span>
+                        <span id="copyBadge" class="px-2.5 py-0.5 rounded-full bg-[var(--accent)] text-[var(--accent-on)] font-mono text-[11px] uppercase tracking-wider">
+                            Copy Email
+                        </span>
+                    </button>
+
+                    <button onclick="triggerManualSonarPing()" class="px-4 py-3 rounded-full border hairline-border card-surface font-mono text-xs hover:border-[var(--accent)] transition-colors flex items-center space-x-1.5">
+                        <span aria-hidden="true" class="w-2 h-2 rounded-full bg-[var(--accent)]"></span>
+                        <span>Emit Sonar Ping</span>
+                    </button>
+
+                    <button onclick="scrubToProgress(0)" class="px-4 py-3 rounded-full border hairline-border card-surface font-mono text-xs hover:border-[var(--text-primary)] transition-colors">
+                        ↑ Ascend to Clouds (+2,840m)
+                    </button>
+                </div>
+
+                <div class="font-mono text-xs text-[var(--text-muted)]">
+                    © 2026 <span id="footerName">Ammar Syahansyah Bin Mohd Reza</span> · 03°08'20"N 101°41'13"E · Depth -1,200m (121.0 ATM)
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CLEAN PROJECT DETAIL MODAL -->
+    <div id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1" onclick="if(event.target === this) closeProjectModal()" class="fixed inset-0 z-50 items-center justify-center hidden p-4 sm:p-6 bg-black/60 backdrop-blur-md">
+        <div tabindex="-1" class="relative w-full max-w-2xl rounded-3xl bg-[var(--bg-primary)] border hairline-border p-6 sm:p-10 shadow-2xl">
+            <div class="flex items-center justify-between pb-4 mb-6 border-b hairline-border">
+                <span id="modalMeta" class="font-mono text-xs text-[var(--text-muted)]">2026 — TOPOGRAPHY</span>
+                <button data-modal-initial-focus onclick="closeProjectModal()" class="min-h-11 px-3 rounded-full font-mono text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)]">
+                    Close ✕
+                </button>
+            </div>
+
+            <div id="modalArtwork" class="flex items-center justify-center w-full mb-6 overflow-hidden border h-52 rounded-2xl hairline-border card-surface"></div>
+            <div id="modalProjectMedia" class="hidden mb-6"></div>
+
+            <h3 id="modalTitle" class="mb-3 text-2xl font-medium tracking-tight sm:text-3xl">Project Title</h3>
+            <p id="modalSummary" class="text-[var(--text-muted)] text-sm sm:text-base leading-relaxed mb-6"></p>
+
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-5 font-mono text-xs border-t hairline-border">
+                <div>
+                    <span class="text-[var(--text-muted)] block mb-1">COORDINATES / ELEVATION</span>
+                    <span id="modalCoords" class="text-[var(--text-primary)]">46°32'N 07°59'E — 3,970m</span>
+                </div>
+                <div id="modalTags" class="flex flex-wrap gap-2"></div>
+            </div>
+            <div id="modalProjectLinks" class="flex flex-wrap hidden gap-2 mt-5"></div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="script.js"></script>
+</body>
+</html>
