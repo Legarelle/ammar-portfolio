@@ -238,7 +238,7 @@
       "kind": "chip",
       "refersTo": "chip-selected",
       "description": "Mono category filter with selected and unselected states.",
-      "html": "<button class='ds-chip ds-chip-selected'>All (7)</button> <button class='ds-chip ds-chip-default'>AI &amp; ML</button>",
+      "html": "<button class='ds-chip ds-chip-selected'>All (6)</button> <button class='ds-chip ds-chip-default'>AI &amp; ML</button>",
       "css": ".ds-chip { padding: 4px 12px; border-radius: 9999px; font: 400 11px/1.5 'JetBrains Mono', monospace; transition: color 0.2s ease, border-color 0.32s ease; } .ds-chip-selected { border: 1px solid var(--text-primary); background: var(--text-primary); color: var(--bg-primary); } .ds-chip-default { border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-muted); } .ds-chip-default:hover { color: var(--text-primary); border-color: var(--accent); } .ds-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }"
     },
     {

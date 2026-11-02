@@ -38,15 +38,13 @@ Instead of scrolling down a traditional webpage, wheel, trackpad, touch gestures
 
 1. **`> MyPlate : Multimodal AI Nutrition & Meal Tracker`** — *React.js, Vite, Tailwind CSS, Google Gemini API, Cloudflare Pages*
 
-2. **`> 3D Data Visualization`** — *Three.js, CSS3D, JavaScript, Google OAuth, Sheets API*
+2. **`> DentAI : AI Powered Dental Assessment System`** — *React.js, Flask, Firebase, YOLOv5*
 
-3. **`> DentAI : AI Powered Dental Assessment System`** — *React.js, Flask, Firebase, YOLOv5*
+3. **`> LearnLoop : Adaptive AI Mastery Learning Platform`** — *React 18, Vite, Tailwind CSS, Vercel Functions, Groq API, Google Gemini API, Zod*
 
-4. **`> LearnLoop : Adaptive AI Mastery Learning Platform`** — *React 18, Vite, Tailwind CSS, Vercel Functions, Groq API, Google Gemini API, Zod*
+4. **`> Firebase Login Mockup`** — *HTML5/CSS3, JavaScript, Firebase Auth, OAuth*
 
-5. **`> Firebase Login Mockup`** — *HTML5/CSS3, JavaScript, Firebase Auth, OAuth*
-
-6. **`> Real-Time Collaborative Canvas (RTCC)`** — *React, React Konva, Yjs, WebSockets*
+5. **`> Real-Time Collaborative Canvas (RTCC)`** — *React, React Konva, Yjs, WebSockets*
 
 ### 3. Adaptive Daylight Cartography & Night Sonar Themes
 

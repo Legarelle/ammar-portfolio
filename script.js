@@ -1,5 +1,5 @@
 /* ==========================================================================
-           1A. AMMAR SYAHANSYAH'S 7 SOFTWARE ENGINEERING PROJECTS (+2,050m PLATEAU)
+           1A. AMMAR SYAHANSYAH'S 6 SOFTWARE ENGINEERING PROJECTS (+2,050m PLATEAU)
            ========================================================================== */
         const engineeringProjectsData = [
             {
@@ -19,23 +19,6 @@
                 liveUrl: 'https://aimeal.pages.dev',
                 repoUrl: 'https://github.com/Legarelle/AiMeal',
                 seed: 1.15
-            },
-            {
-                id: 'proj-02',
-                title: '3D Data Visualization',
-                displayTitle: '> 3D Data Visualization',
-                category: ['3d'],
-                altitude: '+2,190m',
-                coords: 'THREE.JS · CSS3D · SHEETS API',
-                image: 'assets/projects/datavisual.png',
-                imageAlt: '3D globe displaying spreadsheet records as profile cards.',
-                artStyle: 'amber-ribbon',
-                palette: ['#FFE2A8', '#FF6B2B', '#C81D25', '#FFF5DC'],
-                tags: ['Three.js', 'CSS3D', 'JavaScript', 'Google OAuth', 'Google Sheets API', 'Vercel'],
-                sentence: 'An interactive 3D data visualization app that transforms spreadsheet records into spatial layouts, including tables, spheres, grids, tetrahedra, and double helices.',
-                details: '• Connects to Google Sheets API to ingest spreadsheet rows and map their values into interactive DOM cards.\n• Combines Three.js utilities with CSS3DRenderer to keep text crisp while objects move through 3D space.\n• Smoothly interpolates between table, sphere, double-helix, grid, and tetrahedron layouts.\n• Includes orbit and trackball camera controls for panning, zooming, and changing orientation.',
-                liveUrl: 'https://3d-data-visual.vercel.app/',
-                seed: 2.35
             },
             {
                 id: 'proj-03',
@@ -182,31 +165,6 @@
                         <path d="M152 38 C140 76, 136 116, 152 156 C164 172, 188 156, 186 124 C184 92, 162 64, 152 38 Z" fill="#FFF7F4" opacity="0.75"/>
                     </g>
                     <ellipse cx="160" cy="148" rx="92" ry="26" fill="none" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1.2" stroke-dasharray="4 4"/>
-                </svg>`;
-            } else if (p.artStyle === 'amber-ribbon') {
-                // Glossy Crimson & Golden Amber 3D ribbon folds (left tall card aesthetic from reference)
-                return `
-                <svg viewBox="0 0 320 200" class="w-full h-full object-cover">
-                    <defs>
-                        <linearGradient id="bg_${uid}" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="#FCE3B8"/>
-                            <stop offset="100%" stop-color="#F4B97A"/>
-                        </linearGradient>
-                        <linearGradient id="fold1_${uid}" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0%" stop-color="#FF9E2C"/>
-                            <stop offset="45%" stop-color="#E02F2F"/>
-                            <stop offset="100%" stop-color="#7A0B1E"/>
-                        </linearGradient>
-                        <linearGradient id="fold2_${uid}" x1="1" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#FFD464"/>
-                            <stop offset="55%" stop-color="#FF5722"/>
-                            <stop offset="100%" stop-color="#9E1124"/>
-                        </linearGradient>
-                    </defs>
-                    <rect width="320" height="200" fill="url(#bg_${uid})"/>
-                    <path d="M-20 190 C50 60, 140 -10, 240 20 C310 42, 330 140, 270 210 Z" fill="url(#fold1_${uid})"/>
-                    <path d="M40 -20 C130 30, 180 160, 290 190 L340 20 L140 -30 Z" fill="url(#fold2_${uid})" opacity="0.88"/>
-                    <path d="M20 165 C95 85, 195 55, 295 110" fill="none" stroke="#FFE9A8" stroke-width="2" stroke-opacity="0.7"/>
                 </svg>`;
             } else if (p.artStyle === 'chrome-liquid') {
                 // Sculpted Liquid Silver / Metallic Chrome waves (inner left card aesthetic from reference)
@@ -361,7 +319,7 @@
             if (!project.image) return create3DSculpturalArtwork(project);
 
             if (project.video) {
-                return `<video class="project-preview-video w-full h-full object-cover" muted loop playsinline preload="metadata" poster="${project.image}" aria-hidden="true"><source src="${project.video}" type="video/mp4"></video>`;
+                return `<video class="project-preview-video w-full h-full object-cover" muted loop playsinline preload="none" poster="${project.image}" aria-hidden="true"><source src="${project.video}" type="video/mp4"></video>`;
             }
 
             return `<img src="${project.image}" alt="${project.imageAlt}" class="w-full h-full object-cover" loading="lazy" decoding="async">`;
@@ -379,27 +337,28 @@
 
             ring.innerHTML = filtered.map((p, idx) => buildProjectCardHTML(p, idx)).join('');
             update3DGalleryPositions();
-            playProjectCardVideos();
         }
 
-        function playProjectCardVideos() {
+        function playProjectCardVideo(slotEl) {
             if (isMotionPaused || document.hidden) return;
-            document.querySelectorAll('.project-preview-video').forEach(video => {
-                if (!video.paused) return;
-                const playRequest = video.play();
-                if (playRequest) {
-                    playRequest.catch(error => {
-                        if (error.name !== 'AbortError') {
-                            console.error('Unable to autoplay a project preview:', error);
-                        }
-                    });
-                }
-            });
+            const previewVideo = slotEl.querySelector('.project-preview-video');
+            if (!previewVideo || !previewVideo.paused) return;
+
+            stopProjectCardVideos(slotEl);
+            const playRequest = previewVideo.play();
+            if (playRequest) {
+                playRequest.catch(error => {
+                    if (error.name !== 'AbortError') {
+                        console.error('Unable to play a project preview:', error);
+                    }
+                });
+            }
         }
 
         function stopProjectCardVideos(exceptSlot = null) {
             document.querySelectorAll('.project-preview-video').forEach(video => {
                 if (video.closest('.project-3d-slot') === exceptSlot) return;
+                if (video.paused && video.currentTime === 0) return;
                 video.pause();
                 video.currentTime = 0;
             });
@@ -443,7 +402,6 @@
                 projectCardEmphasisTimer = null;
                 expandedProjectCardId = null;
                 isProjectCarouselPaused = false;
-                playProjectCardVideos();
                 highlightProjectCard(null);
                 updateCarouselStatusHUD(false);
                 update3DGalleryPositions();
@@ -457,7 +415,7 @@
             focusedProjectCardId = null;
             expandedProjectCardId = null;
             isProjectCarouselPaused = false;
-            playProjectCardVideos();
+            stopProjectCardVideos();
             highlightProjectCard(null);
             updateCarouselStatusHUD(false);
             update3DGalleryPositions();
@@ -465,19 +423,7 @@
 
         function handleProjectCardEnter(projId, slotEl) {
             hoveredProjectCardId = projId;
-
-            const previewVideo = slotEl.querySelector('.project-preview-video');
-            if (previewVideo && !isMotionPaused) {
-                const playRequest = previewVideo.play();
-                if (playRequest) {
-                    playRequest.catch(error => {
-                        if (error.name !== 'AbortError') {
-                            console.error(`Unable to play the ${projId} project preview:`, error);
-                        }
-                    });
-                }
-            }
-
+            playProjectCardVideo(slotEl);
             setProjectCardEmphasis(projId);
         }
 
@@ -520,7 +466,14 @@
             if (hoveredProjectCardId !== projId) return;
 
             hoveredProjectCardId = null;
-            if (expandedProjectCardId !== projId) return;
+            if (expandedProjectCardId !== projId) {
+                const previewVideo = slotEl.querySelector('.project-preview-video');
+                if (previewVideo && !previewVideo.paused) {
+                    previewVideo.pause();
+                    previewVideo.currentTime = 0;
+                }
+                return;
+            }
             if (focusedProjectCardId) {
                 setProjectCardEmphasis(focusedProjectCardId, 'CARD FOCUSED');
             } else {
@@ -640,6 +593,8 @@
         }
 
         function stepProjectCarouselAnimation(deltaScale = 1) {
+            if (activeSceneIdx !== 1) return;
+
             if (isMotionPaused) {
                 if (Math.abs(targetCarouselAngleOffset) > 0.05) {
                     carouselAngleDeg = (carouselAngleDeg + targetCarouselAngleOffset) % 360;
@@ -1008,6 +963,9 @@
         let targetProgress = 0;   // Normalized 0.0 (Summit +2840m) -> 1.0 (Seabed -1200m)
         let currentProgress = 0;  // Smooth LERP-interpolated camera progress
         let activeSceneIdx = 0;
+        let lastRenderedWorkDotIdx = -1;
+        let lastRenderedNavSceneIdx = -1;
+        let lastRenderedAltitude = null;
         let activeChapterHint = '';
         let isDraggingScrubber = false;
         const altitudeScrubber = document.getElementById('altitudeScrubber');
@@ -1154,25 +1112,26 @@
         // Right-Edge Altitude Scrubber Drag Interaction
         const altitudeTrack = document.getElementById('altitudeTrack');
         const altitudeThumb = document.getElementById('altitudeThumb');
+        let altitudeTrackTravel = 0;
         function getAltitudeThumbInset() {
             return altitudeThumb.offsetHeight / 2;
         }
 
         function layoutAltitudeTrack() {
-            const trackTravel = Math.max(0, altitudeTrack.clientHeight - altitudeThumb.offsetHeight);
+            altitudeTrackTravel = Math.max(0, altitudeTrack.clientHeight - altitudeThumb.offsetHeight);
             const thumbInset = getAltitudeThumbInset();
             const labels = document.querySelectorAll('.altitude-labels [data-altitude-stop]');
 
             altitudeTrack.querySelectorAll('.altitude-tick[data-altitude-stop]').forEach((tick) => {
                 const stop = ALTITUDE_STOPS[Number(tick.dataset.altitudeStop)];
                 if (!stop) return;
-                tick.style.top = `${thumbInset + stop.progress * trackTravel}px`;
+                tick.style.top = `${thumbInset + stop.progress * altitudeTrackTravel}px`;
             });
 
             labels.forEach((label) => {
                 const stop = ALTITUDE_STOPS[Number(label.dataset.altitudeStop)];
                 if (!stop) return;
-                label.style.top = `${thumbInset + stop.progress * trackTravel}px`;
+                label.style.top = `${thumbInset + stop.progress * altitudeTrackTravel}px`;
             });
         }
 
@@ -1340,14 +1299,17 @@
                 slide.inert = !slide.classList.contains('is-active');
             });
 
-            // Highlight active work stage dot
-            document.querySelectorAll('.work-dot-btn').forEach((btn, idx) => {
-                if (idx === activeWorkIdx) {
-                    btn.className = 'work-dot-btn min-h-11 px-3 py-1 rounded-full font-mono text-xs bg-[var(--text-primary)] text-[var(--bg-primary)] transition-all';
-                } else {
-                    btn.className = 'work-dot-btn min-h-11 px-3 py-1 rounded-full font-mono text-xs border hairline-border text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all';
-                }
-            });
+            // Highlight active work stage dot only when the selected stage changes.
+            if (activeWorkIdx !== lastRenderedWorkDotIdx) {
+                document.querySelectorAll('.work-dot-btn').forEach((btn, idx) => {
+                    if (idx === activeWorkIdx) {
+                        btn.className = 'work-dot-btn min-h-11 px-3 py-1 rounded-full font-mono text-xs bg-[var(--text-primary)] text-[var(--bg-primary)] transition-all';
+                    } else {
+                        btn.className = 'work-dot-btn min-h-11 px-3 py-1 rounded-full font-mono text-xs border hairline-border text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all';
+                    }
+                });
+                lastRenderedWorkDotIdx = activeWorkIdx;
+            }
 
             // 3. Highlight Top Navigation Pill across all 5 stops
             const previousSceneIdx = activeSceneIdx;
@@ -1360,13 +1322,16 @@
                 document.querySelectorAll('.spatial-scene')[activeSceneIdx].scrollTop = 0;
             }
 
-            document.querySelectorAll('.nav-pill-btn').forEach((btn, idx) => {
-                if (idx === activeSceneIdx) {
-                    btn.className = 'nav-pill-btn min-h-11 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-medium bg-[var(--text-primary)] text-[var(--bg-primary)] transition-all whitespace-nowrap';
-                } else {
-                    btn.className = 'nav-pill-btn min-h-11 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-medium text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all whitespace-nowrap';
-                }
-            });
+            if (activeSceneIdx !== lastRenderedNavSceneIdx) {
+                document.querySelectorAll('.nav-pill-btn').forEach((btn, idx) => {
+                    if (idx === activeSceneIdx) {
+                        btn.className = 'nav-pill-btn min-h-11 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-medium bg-[var(--text-primary)] text-[var(--bg-primary)] transition-all whitespace-nowrap';
+                    } else {
+                        btn.className = 'nav-pill-btn min-h-11 px-2.5 sm:px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-medium text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all whitespace-nowrap';
+                    }
+                });
+                lastRenderedNavSceneIdx = activeSceneIdx;
+            }
 
             updateScrubberVisibility();
 
@@ -1375,11 +1340,13 @@
 
             const signPrefix = currentAltitude > 0 ? '+' : '';
             const formattedAlt = `${signPrefix}${currentAltitude.toLocaleString()}m`;
-            document.getElementById('hudElevation').textContent = formattedAlt;
-            document.getElementById('scrubberReadout').textContent = formattedAlt;
-            const altitudeTrack = document.getElementById('altitudeTrack');
-            altitudeTrack.setAttribute('aria-valuenow', String(currentAltitude));
-            altitudeTrack.setAttribute('aria-valuetext', `${currentAltitude.toLocaleString()} meters`);
+            if (currentAltitude !== lastRenderedAltitude) {
+                document.getElementById('hudElevation').textContent = formattedAlt;
+                document.getElementById('scrubberReadout').textContent = formattedAlt;
+                altitudeTrack.setAttribute('aria-valuenow', String(currentAltitude));
+                altitudeTrack.setAttribute('aria-valuetext', `${currentAltitude.toLocaleString()} meters`);
+                lastRenderedAltitude = currentAltitude;
+            }
 
             // Update Zone & Atmospheric / Hydrostatic Pressure Readouts
             const zoneBadge = document.getElementById('scrubberZoneBadge');
@@ -1412,13 +1379,12 @@
                 if (hudModeBadge) hudModeBadge.textContent = 'SONAR';
             }
 
-            const trackTravel = Math.max(0, altitudeTrack.clientHeight - altitudeThumb.offsetHeight);
-            altitudeThumb.style.transform = `translate(-50%, ${p * trackTravel}px)`;
+            altitudeThumb.style.transform = `translate(-50%, ${p * altitudeTrackTravel}px)`;
 
             // 5. Update Bottom Chapter Telemetry across all 5 stages
             const chapters = [
                 { num: '01 / 05', name: 'CLOUD SUMMIT (+2,840M) · AMMAR SYAHANSYAH', hint: 'Descend to Summit Peaks · My Projects (+2,050m)', arrow: '↓' },
-                { num: '02 / 05', name: 'SUMMIT PEAKS (+2,050M) · SELECTED PROJECTS (7)', hint: 'Descend to Terraced Land · Experience (+1,180m)', arrow: '↓' },
+                { num: '02 / 05', name: 'SUMMIT PEAKS (+2,050M) · SELECTED PROJECTS (6)', hint: 'Descend to Terraced Land · Experience (+1,180m)', arrow: '↓' },
                 { num: '03 / 05', name: `LAND & VALLEY (+1,180M) · ${projectsData[activeWorkIdx].title.toUpperCase()}`, hint: 'Continue descending toward Sea Level (0m)', arrow: '↓' },
                 { num: '04 / 05', name: 'SEA LEVEL (0M MSL) · UNIKL & GA4 CERTIFICATION', hint: 'Dive below waves to Seabed (-1,200m)', arrow: '↓' },
                 { num: '05 / 05', name: 'ABYSSAL SEABED (-1,200M) · SONAR & DOSSIER', hint: 'Ascend back to Cloud Summit (+2,840m)', arrow: '↑' }
@@ -1468,7 +1434,6 @@
             if (activeModal !== modal) return;
             setProjectModalMedia(null);
             closeActiveModal();
-            playProjectCardVideos();
         }
 
         function toggleTheme() {
@@ -1490,7 +1455,6 @@
                 stopProjectCardVideos();
                 updateCarouselStatusHUD(true, 'MOTION PAUSED');
             } else {
-                playProjectCardVideos();
                 updateCarouselStatusHUD(isProjectCarouselPaused, 'CARD ENLARGED');
             }
             requestSpatialRender();
@@ -2408,7 +2372,8 @@
 
         function animateSpatialPortfolio(timestamp) {
             spatialFrameId = null;
-            const targetFrameInterval = 1000 / (compactSpatialFrameQuery.matches ? 24 : 30);
+            const isCompactDevice = compactSpatialFrameQuery.matches;
+            const targetFrameInterval = 1000 / 30;
             if (!isMotionPaused && lastSpatialFrameTime && timestamp - lastSpatialFrameTime < targetFrameInterval) {
                 requestSpatialRender();
                 return;
@@ -2438,7 +2403,7 @@
             const submerge = clamp((currentProgress - 0.62) / 0.34, 0, 1);
 
             // 1. Render Marching-Squares Topographic Isolines (Air) -> Bathymetric Depth Isobars (Ocean)
-            const step = 42;
+            const step = isCompactDevice ? 56 : 42;
             const cols = Math.ceil(w / step) + 1;
             const rows = Math.ceil(h / step) + 1;
             const requiredGridLength = cols * rows;
@@ -2461,10 +2426,10 @@
                 ? 'rgba(0, 225, 255, 0.24)'
                 : (isDark ? 'rgba(255, 94, 26, 0.16)' : 'rgba(255, 79, 0, 0.15)');
 
-            const levels = 9;
+            const levels = isCompactDevice ? 7 : 9;
             for (let l = 0; l < levels; l++) {
                 const threshold = -0.65 + (l / levels) * 1.5;
-                const isIndex = l === 4 || l === 7;
+                const isIndex = isCompactDevice ? l === 3 || l === 5 : l === 4 || l === 7;
 
                 topoCtx.beginPath();
                 topoCtx.strokeStyle = isIndex ? accentStroke : baseStroke;
@@ -2549,7 +2514,6 @@
                 spatialFrameId = null;
             } else if (!document.hidden) {
                 lastSpatialFrameTime = 0;
-                playProjectCardVideos();
                 requestSpatialRender();
             }
         });

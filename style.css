@@ -270,8 +270,6 @@
             width: 268px;
             height: 396px;
             transform-style: preserve-3d;
-            will-change: transform, opacity, filter;
-            transition: filter 0.35s ease, opacity 0.35s ease;
         }
 
         @media (min-width: 640px) {
@@ -636,6 +634,15 @@
         }
 
         @media (max-width: 639px) {
+            .project-carousel-card {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+
+            .carousel-has-hover .project-3d-slot:not(.is-hovered-slot) .project-carousel-card {
+                filter: none;
+            }
+
             footer {
                 bottom: max(12px, env(safe-area-inset-bottom));
                 gap: 8px;
